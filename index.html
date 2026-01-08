@@ -682,9 +682,17 @@
     }
 
     // Initialize
-    applyMetadata(config.metadata);
-    applyTheme(config.theme);
-    renderPage(config);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        applyMetadata(config.metadata);
+        applyTheme(config.theme);
+        renderPage(config);
+      });
+    } else {
+      applyMetadata(config.metadata);
+      applyTheme(config.theme);
+      renderPage(config);
+    }
   </script>
 </body>
 </html>
