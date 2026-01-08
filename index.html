@@ -599,6 +599,19 @@
       `;
     }
 
+    // Component: FinalCTA
+    function FinalCTA({ title, subtitle, ctaText, ctaUrl }) {
+      return `
+        <section class="section section-alt">
+          <div class="container-small">
+            <h2>${title}</h2>
+            <p>${subtitle}</p>
+            <a href="${ctaUrl}" class="btn">${ctaText}</a>
+          </div>
+        </section>
+      `;
+    }
+
     // Apply theme colors to CSS variables
     function applyTheme(theme) {
       const root = document.documentElement;
