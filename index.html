@@ -259,7 +259,62 @@
     .about-content p {
       margin-bottom: 16px;
     }
-  </style>
+    footer {
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border);
+      padding: 40px 20px 20px;
+      margin-top: 60px;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-section h4 {
+      color: var(--color-primary);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+    .footer-section ul li a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+    .footer-section ul li a:hover {
+      color: var(--color-primary);
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+    .footer-brand {
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
 </head>
 <body>
   <div id="app"></div>
@@ -325,7 +380,39 @@
       features: {
         title: "No Distractions. Just Reps.",
         subtitle: "Built for people who actually lift",
-        items: [
+       ,
+      
+      // Footer configuration
+      footer: {
+        brandName: "DRD Fitness",
+        year: 2026,
+        sections: [
+          {
+            title: "Product",
+            links: [
+              { text: "Launch App", url: "https://app.drdfitness.co.uk" },
+              { text: "Pricing", url: "#pricing" },
+              { text: "Features", url: "#features" }
+            ]
+          },
+          {
+            title: "Company",
+            links: [
+              { text: "About", url: "#about" },
+              { text: "Blog", url: "#blog" },
+              { text: "Contact", url: "#contact" }
+            ]
+          },
+          {
+            title: "Legal",
+            links: [
+              { text: "Privacy Policy", url: "#privacy" },
+              { text: "Terms of Service", url: "#terms" },
+              { text: "Cookie Policy", url: "#cookies" }
+            ]
+          }
+        ]
+      } items: [
           { icon: "📊", title: "Your Data. Not a Feed.", description: "No social features. No gamification. Just your workouts and your progress." },
           { icon: "⚡", title: "Log Fast, Train Hard", description: "Enter sets in seconds. Get back to lifting. No clutter between you and your workout." },
           { icon: "📈", title: "Track What Matters", description: "Volume, intensity, frequency. Real metrics that drive strength gains." },
@@ -547,6 +634,37 @@
       // Favicon
       document.getElementById('page-favicon').setAttribute('href', metadata.favicon);
     }
+
+    // Component: Footer
+    function Footer({ brandName, year, sections }) {
+      return `
+        <footer>
+          <div class="footer-container">
+            <div class="footer-content">
+              ${sections.map(section => `
+                <div class="footer-section">
+                  <h4>${section.title}</h4>
+                  <ul>
+                    ${section.links.map(link => `
+                      <li><a href="${link.url}">${link.text}</a></li>
+                    `).join('')}
+                  </ul>
+                </div>
+              `).join('')}
+            </div>
+            <div class="footer-bottom">
+              <div class="footer-brand">
+                &copy; ${year} ${brandName}. All rights reserved.
+              </div>
+              <div>
+                Crafted with intention for serious athletes.
+              </div>
+            </div>
+          </div>
+        </footer>
+      `;
+    }
+
     // Render the complete page
     function renderPage(config) {
       const app = document.getElementById('app');
@@ -559,22 +677,7 @@
         ${EmailCapture(config.emailCapture)}
         ${About(config.about)}
         ${FinalCTA(config.finalCTA)}
-      `;
-    }
-
-    // Initialize
-    applyTheme(config.theme); complete page
-    function renderPage(config) {
-      const app = document.getElementById('app');
-      app.innerHTML = `
-        ${Hero(config.hero)}
-        ${SocialProof(config.socialProof)}
-        ${HowItWorks(config.howItWorks)}
-        ${Features(config.features)}
-        ${Screenshots(config.screenshots)}
-        ${EmailCapture(config.emailCapture)}
-        ${About(config.about)}
-        ${FinalCTA(config.finalCTA)}
+        ${Footer(config.footer)}
       `;
     }
 
