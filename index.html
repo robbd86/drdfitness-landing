@@ -390,12 +390,8 @@
             <p>${subtitle}</p>
             <div class="features-grid">
               ${items.map(item => `
-                <div class="feature-caritem">
-                  ${img.src 
-                    ? `<img src="${img.src}" alt="${img.alt}" class="screenshot-image" />`
-                    : `<div class="screenshot-placeholder">${img.alt}</div>`
-                  }
-                  <div class="screenshot-caption">${img.caption}</div>="feature-icon">${item.icon}</div>
+                <div class="feature-card">
+                  <div class="feature-icon">${item.icon}</div>
                   <h3>${item.title}</h3>
                   <p>${item.description}</p>
                 </div>
@@ -415,8 +411,22 @@
             <p>${subtitle}</p>
             <div class="screenshots-grid">
               ${images.map(img => `
-                <div class="screenshot-placeholder">
-                  ${img.alt}, privacyNote }) {
+                <div class="screenshot-item">
+                  ${img.src 
+                    ? `<img src="${img.src}" alt="${img.alt}" class="screenshot-image" />`
+                    : `<div class="screenshot-placeholder">${img.alt}</div>`
+                  }
+                  <div class="screenshot-caption">${img.caption}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // Component: EmailCapture
+    function EmailCapture({ title, subtitle, placeholder, buttonText, action, privacyNote }) {
       return `
         <section class="section section-alt">
           <div class="container-narrow">
@@ -426,17 +436,7 @@
               <input type="email" class="email-input" placeholder="${placeholder}" name="email" required />
               <button type="submit" class="btn">${buttonText}</button>
             </form>
-            ${privacyNote ? `<div class="privacy-note">${privacyNote}</div>` : ''}mailCapture
-    function EmailCapture({ title, subtitle, placeholder, buttonText, action }) {
-      return `
-        <section class="section section-alt">
-          <div class="container-narrow">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
-            <form class="email-form" action="${action}" method="POST">
-              <input type="email" class="email-input" placeholder="${placeholder}" required />
-              <button type="submit" class="btn">${buttonText}</button>
-            </form>
+            ${privacyNote ? `<div class="privacy-note">${privacyNote}</div>` : ''}
           </div>
         </section>
       `;
