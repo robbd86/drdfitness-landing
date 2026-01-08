@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DRD Fitness</title>
+  
+  <!-- SEO & Metadata (populated from config) -->
+  <title id="page-title">DRD Fitness</title>
+  <meta id="page-description" name="description" content="" />
+  <meta id="page-keywords" name="keywords" content="" />
+  
+  <!-- Open Graph (Social Sharing) -->
+  <meta id="og-title" property="og:title" content="" />
+  <meta id="og-description" property="og:description" content="" />
+  <meta id="og-image" property="og:image" content="" />
+  <meta id="og-url" property="og:url" content="" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Favicon -->
+  <link id="page-favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>" />
+  
   <style>
     :root {
       --color-primary: #ff7a18;
@@ -269,6 +284,16 @@
         buttonText: "#000000",
         fontFamily: "Inter, system-ui, sans-serif"
       },
+      
+      // SEO & Metadata
+      metadata: {
+        title: "DRD Fitness - Training Log for Lifters",
+        description: "Track your strength with precision. Log every rep, monitor progress, and build consistency with DRD Fitness.",
+        keywords: "workout tracker, strength training, lifting app, fitness log, weightlifting",
+        url: "https://drdfitness.co.uk",
+        image: "https://drdfitness.co.uk/og-image.png",
+        favicon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>"
+      },
       appUrl: "https://app.drdfitness.co.uk",
       
       hero: {
@@ -499,7 +524,29 @@
       root.style.setProperty('--color-button-text', theme.buttonText);
       root.style.setProperty('--font-family', theme.fontFamily);
     }
-
+    // Apply metadata & SEO
+    function applyMetadata(metadata) {
+      // Page title
+      document.getElementById('page-title').textContent = metadata.title;
+      document.title = metadata.title;
+      
+      // Meta description
+      document.getElementById('page-description').setAttribute('content', metadata.description);
+      
+      // Keywords
+      if (metadata.keywords) {
+        document.getElementById('page-keywords').setAttribute('content', metadata.keywords);
+      }
+      
+      // Open Graph tags
+      document.getElementById('og-title').setAttribute('content', metadata.title);
+      document.getElementById('og-description').setAttribute('content', metadata.description);
+      document.getElementById('og-image').setAttribute('content', metadata.image);
+      document.getElementById('og-url').setAttribute('content', metadata.url);
+      
+      // Favicon
+      document.getElementById('page-favicon').setAttribute('href', metadata.favicon);
+    }
     // Render the complete page
     function renderPage(config) {
       const app = document.getElementById('app');
@@ -532,6 +579,8 @@
     }
 
     // Initialize
+    applyMetadata(config.metadata);
+    applyTheme(config.theme);
     renderPage(config);
   </script>
 </body>
