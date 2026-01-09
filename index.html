@@ -356,7 +356,7 @@
         title: "Train Hard. Track Smart.",
         tagline: "A simple workout tracker built for lifters who want progress without the clutter. Log sets, reps, and performance in seconds.",
         ctaText: "Start Tracking Free",
-        ctaUrl: "https://app.drdfitness.co.uk"
+        ctaUrl: "#waitlist"
       },
       
       socialProof: {
@@ -436,7 +436,7 @@
         title: "Start Tracking Today",
         subtitle: "No trial periods. No credit card. Just open the app and log your first workout.",
         ctaText: "Start Tracking Free",
-        ctaUrl: "https://app.drdfitness.co.uk"
+        ctaUrl: "#waitlist"
       },
 
       // Footer configuration
@@ -447,7 +447,7 @@
           {
             title: "Product",
             links: [
-              { text: "Launch App", url: "https://app.drdfitness.co.uk" },
+              { text: "Launch App", url: "#waitlist" },
               { text: "Pricing", url: "#pricing" },
               { text: "Features", url: "#features" }
             ]
@@ -479,7 +479,7 @@
           <div class="container-small">
             <h1>${title}</h1>
             <p>${tagline}</p>
-            <a href="https://app.drdfitness.co.uk" class="cta-btn">
+            <a href="${ctaUrl}" class="cta-btn">
               Start Tracking Free
             </a>
           </div>
@@ -574,7 +574,7 @@
     // Component: EmailCapture
     function EmailCapture({ title, subtitle, placeholder, buttonText, action, returnUrl, privacyNote }) {
       return `
-        <section class="section section-alt">
+        <section class="section section-alt" id="waitlist">
           <div class="container-narrow">
             <h2>${title}</h2>
             <p>${subtitle}</p>
