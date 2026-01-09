@@ -419,6 +419,7 @@
         placeholder: "your@email.com",
         buttonText: "Join Waitlist",
         action: "https://script.google.com/macros/s/AKfycbwf3emXwNO6EPweonEv5InigL_j2ZAvLBeTC378LtuXprWYm-unmeBqVCrNA-jIek8/exec",
+        returnUrl: "https://drdfitness.co.uk",
         privacyNote: "We respect your inbox. Unsubscribe anytime."
       },
       
@@ -569,13 +570,14 @@
     }
 
     // Component: EmailCapture
-    function EmailCapture({ title, subtitle, placeholder, buttonText, action, privacyNote }) {
+    function EmailCapture({ title, subtitle, placeholder, buttonText, action, returnUrl, privacyNote }) {
       return `
         <section class="section section-alt">
           <div class="container-narrow">
             <h2>${title}</h2>
             <p>${subtitle}</p>
             <form class="email-form" action="${action}" method="POST">
+              ${returnUrl ? `<input type="hidden" name="returnUrl" value="${returnUrl}" />` : ''}
               <input type="email" class="email-input" placeholder="${placeholder}" name="email" required />
               <button type="submit" class="btn">${buttonText}</button>
             </form>

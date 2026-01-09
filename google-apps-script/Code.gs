@@ -11,6 +11,7 @@ function doPost(e) {
   try {
     const params = (e && e.parameter) ? e.parameter : {};
     const email = (params.email || '').toString().trim();
+    const returnUrl = (params.returnUrl || '').toString().trim() || 'https://drdfitness.co.uk';
 
     if (!email) {
       return _htmlResponse(400, 'Missing email', 'Please go back and enter an email address.');
@@ -38,6 +39,7 @@ function doPost(e) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thanks — You're on the waitlist</title>
+  <meta http-equiv="refresh" content="2;url=${returnUrl}" />
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:48px;background:#0b0b0b;color:#fff;}
     .card{max-width:520px;margin:0 auto;padding:24px;border:1px solid #333;border-radius:12px;background:#151515;}
@@ -49,8 +51,8 @@ function doPost(e) {
 <body>
   <div class="card">
     <h1>You're on the waitlist</h1>
-    <p>Thanks — we'll email you updates. You can close this tab or go back.</p>
-    <a href="javascript:history.back()">Go back</a>
+    <p>Thanks — we'll email you updates. Redirecting you back now…</p>
+    <a href="${returnUrl}">Back to site</a>
   </div>
 </body>
 </html>`
