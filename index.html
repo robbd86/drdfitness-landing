@@ -255,6 +255,16 @@
       margin-top: 12px;
       text-align: center;
     }
+    .waitlist-status {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      min-height: 1.2em;
+    }
+    .waitlist-status.is-error {
+      color: var(--color-text-muted);
+    }
     .about-content {
       text-align: left;
       margin-top: 32px;
@@ -586,6 +596,7 @@
               <input type="email" class="email-input" placeholder="${placeholder}" name="email" required />
               <button type="submit" class="btn">${buttonText}</button>
             </form>
+            <div class="waitlist-status" aria-live="polite"></div>
             <div class="privacy-note">Entries close soon • UK only • No purchase required</div>
             ${privacyNote ? `<div class="privacy-note">${privacyNote}</div>` : ''}
           </div>
@@ -717,6 +728,7 @@
 
       const emailInput = form.querySelector('input[name="email"]');
       const submitButton = form.querySelector('button[type="submit"]');
+      const statusEl = document.querySelector('#waitlist .waitlist-status');
 
       form.addEventListener('submit', async (e) => {
         // Keep native validation behaviour.
@@ -734,6 +746,10 @@
           if (submitButton) {
             submitButton.disabled = true;
           }
+          if (statusEl) {
+            statusEl.classList.remove('is-error');
+            statusEl.textContent = 'Submitting…';
+          }
 
           // Use no-cors + text/plain to avoid CORS preflight for Apps Script web apps.
           await fetch(endpoint, {
@@ -746,6 +762,14 @@
           });
 
           if (emailInput) emailInput.value = '';
+          if (statusEl) {
+            statusEl.classList.remove('is-error');
+            statusEl.textContent = "You're in. You're entered for the giveaway + early access.";
+            window.setTimeout(() => {
+              // Keep it from lingering forever if user stays on page.
+              statusEl.textContent = '';
+            }, 6000);
+          }
           if (submitButton) {
             const originalText = submitButton.textContent;
             submitButton.textContent = 'Entered';
@@ -755,6 +779,10 @@
             }, 1200);
           }
         } catch (_) {
+          if (statusEl) {
+            statusEl.classList.add('is-error');
+            statusEl.textContent = 'Something went wrong — please try again.';
+          }
           // Fallback to normal form POST navigation if fetch fails.
           try {
             if (submitButton) submitButton.disabled = false;
