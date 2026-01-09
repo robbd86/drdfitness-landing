@@ -262,6 +262,10 @@
       text-align: center;
       min-height: 1.2em;
     }
+    .waitlist-status.is-success {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
     .waitlist-status.is-error {
       color: var(--color-text-muted);
     }
@@ -747,7 +751,7 @@
             submitButton.disabled = true;
           }
           if (statusEl) {
-            statusEl.classList.remove('is-error');
+            statusEl.classList.remove('is-error', 'is-success');
             statusEl.textContent = 'Submitting…';
           }
 
@@ -764,15 +768,12 @@
           if (emailInput) emailInput.value = '';
           if (statusEl) {
             statusEl.classList.remove('is-error');
-            statusEl.textContent = "You're in. You're entered for the giveaway + early access.";
-            window.setTimeout(() => {
-              // Keep it from lingering forever if user stays on page.
-              statusEl.textContent = '';
-            }, 6000);
+            statusEl.classList.add('is-success');
+            statusEl.textContent = "You're in — entry saved. Watch TikTok for the winner + check email for early access.";
           }
           if (submitButton) {
             const originalText = submitButton.textContent;
-            submitButton.textContent = 'Entered';
+            submitButton.textContent = "You're in";
             window.setTimeout(() => {
               submitButton.textContent = originalText;
               submitButton.disabled = false;
@@ -780,6 +781,7 @@
           }
         } catch (_) {
           if (statusEl) {
+            statusEl.classList.remove('is-success');
             statusEl.classList.add('is-error');
             statusEl.textContent = 'Something went wrong — please try again.';
           }
