@@ -703,6 +703,67 @@
         ${FinalCTA(config.finalCTA)}
         ${Footer(config.footer)}
       `;
+
+      initWaitlistForm(config.emailCapture);
+    }
+
+    function initWaitlistForm(emailCaptureConfig) {
+      const form = document.querySelector('#waitlist form.email-form');
+      if (!form) return;
+
+      // Avoid double-binding if renderPage is called more than once.
+      if (form.dataset.bound === 'true') return;
+      form.dataset.bound = 'true';
+
+      const emailInput = form.querySelector('input[name="email"]');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async (e) => {
+        // Keep native validation behaviour.
+        if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
+
+        e.preventDefault();
+
+        const email = (emailInput && emailInput.value ? emailInput.value : '').trim();
+        if (!email) return;
+
+        const endpoint = emailCaptureConfig.action;
+        const returnUrl = emailCaptureConfig.returnUrl;
+
+        try {
+          if (submitButton) {
+            submitButton.disabled = true;
+          }
+
+          // Use no-cors + text/plain to avoid CORS preflight for Apps Script web apps.
+          await fetch(endpoint, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify({ email, returnUrl })
+          });
+
+          if (emailInput) emailInput.value = '';
+          if (submitButton) {
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Entered';
+            window.setTimeout(() => {
+              submitButton.textContent = originalText;
+              submitButton.disabled = false;
+            }, 1200);
+          }
+        } catch (_) {
+          // Fallback to normal form POST navigation if fetch fails.
+          try {
+            if (submitButton) submitButton.disabled = false;
+            form.submit();
+          } catch (__) {
+            // no-op
+          }
+        }
+      });
     }
 
     // Initialize
