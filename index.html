@@ -145,6 +145,17 @@
       background: var(--color-bg-card);
       border-color: var(--color-primary);
     }
+    .hero-secondary-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .hero-secondary-link:hover {
+      color: var(--color-text-secondary);
+    }
     @media (max-width: 640px) {
       .hero-secondary {
         text-align: center;
@@ -440,7 +451,9 @@
             "One-time purchase, no subscription"
           ],
           buttonText: "Get the Notion Tracker (£2)",
-          buttonUrl: "https://fitdrd.gumroad.com/l/grehpj"
+          buttonUrl: "https://fitdrd.gumroad.com/l/grehpj",
+          linkText: "Or get the full starter system (save £?)",
+          linkUrl: "https://fitdrd.gumroad.com/l/grehpj"
         }
       },
       
@@ -575,6 +588,11 @@
                   ${Array.isArray(secondaryOffer.bullets) ? secondaryOffer.bullets.map(b => `<li>${b}</li>`).join('') : ''}
                 </ul>
                 <a class="btn-outline" href="${secondaryOffer.buttonUrl}" target="_blank" rel="noopener noreferrer">${secondaryOffer.buttonText}</a>
+                ${secondaryOffer.linkText && secondaryOffer.linkUrl ? `
+                  <div>
+                    <a class="hero-secondary-link" href="${secondaryOffer.linkUrl}" target="_blank" rel="noopener noreferrer">${secondaryOffer.linkText}</a>
+                  </div>
+                ` : ''}
               </div>
             ` : ''}
           </div>
