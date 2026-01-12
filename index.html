@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="impact-site-verification" content="8f866883-939f-4946-9bbf-7d47385f190c" />
   
   <!-- SEO & Metadata (populated from config) -->
   <title id="page-title">DRD Fitness</title>
@@ -456,6 +457,13 @@
           linkUrl: "https://fitdrd.gumroad.com/l/grehpj"
         }
       },
+
+      supplementsCta: {
+        title: "Supplements I Actually Use",
+        description: "A short, honest list of what I use to support my own training routine.",
+        buttonText: "View Supplements",
+        url: "/supplements"
+      },
       
       socialProof: {
         title: "Be part of the first release",
@@ -595,6 +603,19 @@
                 ` : ''}
               </div>
             ` : ''}
+          </div>
+        </section>
+      `;
+    }
+
+    // Component: SupplementsCTA
+    function SupplementsCTA({ title, description, buttonText, url }) {
+      return `
+        <section class="section section-alt">
+          <div class="container-small">
+            <h2>${title}</h2>
+            <p>${description}</p>
+            <a href="${url}" class="btn">${buttonText}</a>
           </div>
         </section>
       `;
@@ -805,6 +826,7 @@
       const app = document.getElementById('app');
       app.innerHTML = `
         ${Hero(config.hero)}
+        ${SupplementsCTA(config.supplementsCta)}
         ${SocialProof(config.socialProof)}
         ${HowItWorks(config.howItWorks)}
         ${Features(config.features)}
