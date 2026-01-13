@@ -344,12 +344,13 @@
       margin-bottom: 16px;
     }
 
-    /* Fixed-height site banner header.
-       Do NOT use 100vh or min-height here (this is not a hero). */
+    /* Fixed header banner.
+       Must be edge-to-edge (100vw) and must NOT use 100vh or min-height. */
     .site-banner {
-      width: 100%;
-      height: 280px;
-      max-height: 280px;
+      width: 100vw;
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
       overflow: hidden;
       background: var(--color-bg-alt);
       border-bottom: 1px solid var(--color-border);
@@ -360,18 +361,17 @@
     .site-banner a {
       display: block;
       width: 100%;
-      height: 100%;
       line-height: 0;
     }
     .site-banner img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 280px;
       object-fit: contain;
       display: block;
     }
     @media (max-width: 768px) {
-      .site-banner {
-        height: 200px;
+      .site-banner img {
         max-height: 200px;
       }
     }
