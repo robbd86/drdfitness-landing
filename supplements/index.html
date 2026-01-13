@@ -167,41 +167,21 @@
       align-items: center;
     }
 
-    /* Full-bleed site banner.
-       Uses the 50% left + -50vw margin technique to span edge-to-edge even
-       when the rest of the page is inside a max-width container.
-       Do NOT use 100vh or min-height here (this is not a hero). */
+    /* Simple responsive banner image (NOT a hero).
+       The image aspect ratio defines the banner height naturally. */
     .site-banner {
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      width: 100vw;
+      width: 100%;
       max-width: none;
-      height: 280px;
-      overflow: hidden;
+      margin: 0;
       background: var(--color-bg-alt);
       border-bottom: 1px solid var(--color-border);
-      z-index: 2;
-    }
-    .site-banner a {
-      display: block;
-      width: 100%;
-      height: 100%;
       line-height: 0;
+      z-index: 2;
     }
     .site-banner img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      height: auto;
       display: block;
-    }
-    @media (max-width: 768px) {
-      .site-banner {
-        height: 200px;
-      }
     }
 
     footer {
@@ -231,9 +211,7 @@
 </head>
 <body>
   <header class="site-banner">
-    <a href="/" aria-label="DRD Fitness home">
-      <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
-    </a>
+    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
   </header>
   <main>
     <section class="section">
