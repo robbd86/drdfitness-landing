@@ -39,6 +39,13 @@
       text-align: center;
     }
 
+    /* Standardize spacing between major sections.
+       Each section keeps its bottom padding; the next section drops its top padding
+       so gaps land in the 3rem–4rem range instead of doubling. */
+    .section + .section {
+      padding-top: 0;
+    }
+
     .section-alt {
       background: var(--color-bg-alt);
     }

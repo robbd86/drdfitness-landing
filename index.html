@@ -48,6 +48,12 @@
       padding: 60px 20px;
       text-align: center;
     }
+    /* Standardize spacing between major sections.
+       Each section keeps its bottom padding; the next section drops its top padding
+       so gaps land in the 3rem–4rem range instead of doubling. */
+    .section + .section {
+      padding-top: 0;
+    }
     .section-alt {
       background: var(--color-bg-alt);
     }
@@ -98,10 +104,6 @@
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-    }
-    .hero.section {
-      padding-top: 76px;
-      padding-bottom: 76px;
     }
     .hero-content {
       display: flex;
@@ -438,7 +440,7 @@
       background: var(--color-bg-alt);
       border-top: 1px solid var(--color-border);
       padding: 40px 20px 20px;
-      margin-top: 60px;
+      margin-top: 0;
     }
     .footer-container {
       max-width: 1200px;
