@@ -170,28 +170,29 @@
     header.site-header {
       background: var(--color-bg-alt);
       border-bottom: 1px solid var(--color-border);
-      padding: 14px 20px;
+      padding: 0;
       text-align: center;
       position: relative;
       z-index: 2;
     }
+    header.site-header .container {
+      max-width: 100%;
+    }
     .site-logo-link {
-      display: inline-block;
+      display: block;
       text-decoration: none;
       line-height: 0;
     }
     .site-logo {
       display: block;
       width: 100%;
-      max-width: 520px;
       height: auto;
-      max-height: 60px;
-      object-fit: contain;
-      margin: 0 auto;
+      max-height: 140px;
+      object-fit: cover;
     }
     @media (max-width: 640px) {
       .site-logo {
-        max-height: 48px;
+        max-height: 96px;
       }
     }
 
