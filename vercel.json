@@ -4,6 +4,7 @@
   "outputDirectory": "dist",
   "routes": [
     { "handle": "filesystem" },
+    { "src": "/assets/brand/logo\\.svg", "dest": "/assets/brand/logo.jpg" },
     { "src": "/supplements", "dest": "/supplements/index.html" },
     { "src": "/", "dest": "/index.html" }
   ]
