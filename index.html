@@ -43,6 +43,9 @@
       font-family: var(--font-family);
       background: var(--color-bg-main);
       color: var(--color-text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     .section {
       padding: 60px 20px;
@@ -77,33 +80,40 @@
     h1 {
       color: var(--color-text-primary);
       margin-bottom: 20px;
-      font-size: 3rem;
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.12;
       letter-spacing: -0.02em;
     }
     h2 {
       color: var(--color-primary);
       margin-bottom: 20px;
-      font-size: 2rem;
+      font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+      font-weight: 750;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
     }
     h3 {
       color: var(--color-primary);
       margin-bottom: 12px;
-      font-size: 1.5rem;
+      font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+      font-weight: 700;
+      line-height: 1.22;
     }
     p {
       color: var(--color-text-secondary);
       margin-bottom: 24px;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 1.05rem;
     }
     .hero p {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       color: var(--color-text-muted);
       margin-bottom: 32px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.7;
     }
     .hero-content {
       display: flex;
@@ -117,10 +127,11 @@
     }
     .hero-subheading {
       margin: 0;
-      font-size: 1.25rem;
-      font-weight: 650;
+      font-size: 1.22rem;
+      font-weight: 700;
       color: var(--color-text-secondary);
       max-width: 680px;
+      line-height: 1.5;
     }
     .hero-body {
       margin: 0;
