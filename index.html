@@ -344,6 +344,26 @@
     .about-content p {
       margin-bottom: 16px;
     }
+
+    header.site-header {
+      background: var(--color-bg-alt);
+      border-bottom: 1px solid var(--color-border);
+      padding: 14px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .site-brand {
+      display: inline-block;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 1rem;
+    }
+    .site-brand:hover {
+      color: var(--color-primary);
+    }
     footer {
       background: var(--color-bg-alt);
       border-top: 1px solid var(--color-border);
@@ -579,6 +599,16 @@
     };
 
     // Component: Hero
+    function Header({ brandName, homeUrl = '/' }) {
+      return `
+        <header class="site-header">
+          <div class="container">
+            <a class="site-brand" href="${homeUrl}" aria-label="${brandName} home">${brandName}</a>
+          </div>
+        </header>
+      `;
+    }
+
     function Hero({ title, tagline, ctaText, ctaUrl, secondaryOffer }) {
       return `
         <section class="hero section">
@@ -825,6 +855,7 @@
     function renderPage(config) {
       const app = document.getElementById('app');
       app.innerHTML = `
+        ${Header({ brandName: config.brandName })}
         ${Hero(config.hero)}
         ${SupplementsCTA(config.supplementsCta)}
         ${SocialProof(config.socialProof)}
