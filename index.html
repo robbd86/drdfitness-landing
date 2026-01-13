@@ -191,7 +191,6 @@
       font-size: 1.1rem;
     }
     .hero {
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -345,26 +344,36 @@
       margin-bottom: 16px;
     }
 
-    header.site-header {
+    /* Fixed-height site banner header.
+       Do NOT use 100vh or min-height here (this is not a hero). */
+    .site-banner {
+      width: 100%;
+      height: 280px;
+      max-height: 280px;
+      overflow: hidden;
       background: var(--color-bg-alt);
       border-bottom: 1px solid var(--color-border);
-      padding: 0;
       text-align: center;
       position: relative;
       z-index: 2;
     }
-    header.site-header .container {
-      max-width: 100%;
-    }
-    .site-logo-link {
-      display: block;
-      text-decoration: none;
-      line-height: 0;
-    }
-    .site-logo {
+    .site-banner a {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      line-height: 0;
+    }
+    .site-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .site-banner {
+        height: 200px;
+        max-height: 200px;
+      }
     }
     footer {
       background: var(--color-bg-alt);
@@ -603,12 +612,10 @@
     // Component: Hero
     function Header({ brandName, homeUrl = '/' }) {
       return `
-        <header class="site-header">
-          <div class="container">
-            <a class="site-logo-link" href="${homeUrl}" aria-label="${brandName} home">
-              <img class="site-logo" src="/assets/brand/logo.png" alt="DRD Fitness Home" />
-            </a>
-          </div>
+        <header class="site-banner">
+          <a href="${homeUrl}" aria-label="${brandName} home">
+            <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
+          </a>
         </header>
       `;
     }
