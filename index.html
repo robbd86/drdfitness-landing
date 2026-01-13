@@ -419,6 +419,9 @@
   </style>
 </head>
 <body>
+  <header class="site-banner">
+    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
+  </header>
   <div id="app"></div>
   
   <script type="module">
@@ -593,15 +596,6 @@
         ]
       }
     };
-
-    // Component: Hero
-    function Header({ brandName }) {
-      return `
-        <header class="site-banner">
-          <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
-        </header>
-      `;
-    }
 
     function Hero({ title, tagline, ctaText, ctaUrl, secondaryOffer }) {
       return `
@@ -849,7 +843,6 @@
     function renderPage(config) {
       const app = document.getElementById('app');
       app.innerHTML = `
-        ${Header({ brandName: config.brandName })}
         ${Hero(config.hero)}
         ${SupplementsCTA(config.supplementsCta)}
         ${SocialProof(config.socialProof)}
