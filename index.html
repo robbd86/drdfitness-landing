@@ -344,8 +344,10 @@
       margin-bottom: 16px;
     }
 
-    /* Simple responsive banner image (NOT a hero).
-       The image aspect ratio defines the banner height naturally. */
+    /* DEV NOTE (DO NOT "IMPROVE" THIS INTO A HERO):
+       The site banner is intentionally a dumb branding image only.
+       Messaging + CTAs live in the hero section below.
+       IMPORTANT: Do not modify links/URLs during layout/styling changes. */
     .site-banner {
       width: 100%;
       max-width: none;
@@ -358,7 +360,7 @@
     .site-banner img {
       width: 100%;
       height: auto;
-      max-height: 300px;
+      max-height: 320px;
       display: block;
     }
     @media (max-width: 768px) {
@@ -464,7 +466,7 @@
       
       hero: {
         title: "Train Hard. Track Smart.",
-        tagline: "A simple workout tracker built for lifters who want progress without the clutter. Log sets, reps, and performance in seconds.",
+        tagline: "A simple workout tracker built for lifters who want real progress without the clutter. Log sets, reps, and performance in seconds.",
         ctaText: "Start Tracking Free",
         ctaUrl: "#waitlist",
         secondaryOffer: {
@@ -609,9 +611,9 @@
           <div class="container-small">
             <h1>${title}</h1>
             <p>${tagline}</p>
-            <a href="${ctaUrl}" class="cta-btn">
-              Start Tracking Free
-            </a>
+            <div class="hero-actions">
+              <a href="${ctaUrl}" class="cta-btn">Start Tracking Free</a>
+            </div>
             ${secondaryOffer ? `
               <div class="hero-secondary" aria-label="Secondary offer">
                 <div class="hero-secondary-heading">${secondaryOffer.heading}</div>
