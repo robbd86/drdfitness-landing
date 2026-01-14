@@ -50,6 +50,7 @@ copySupplementsWithEnvLink(
   path.join(root, 'supplements', 'index.html'),
   path.join(dist, 'supplements', 'index.html')
 );
+copyDir(path.join(root, 'blog'), path.join(dist, 'blog'));
 copyDir(path.join(root, 'assets'), path.join(dist, 'assets'));
 
 console.log('Build complete: dist/');
