@@ -6,12 +6,12 @@
   <meta name="impact-site-verification" content="8f866883-939f-4946-9bbf-7d47385f190c" />
 
   <title>Workouts | DRD Fitness</title>
-  <meta name="description" content="Training tools and workout resources from DRD Fitness." />
+  <meta name="description" content="Beginner-friendly training tools from DRD Fitness — including a macro calculator for calories, protein, carbs, and fats." />
   <link rel="canonical" href="https://drdfitness.co.uk/workouts" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Workouts" />
-  <meta property="og:description" content="Training tools and workout resources from DRD Fitness." />
+  <meta property="og:description" content="Beginner-friendly training tools from DRD Fitness — including a macro calculator for calories, protein, carbs, and fats." />
   <meta property="og:url" content="https://drdfitness.co.uk/workouts" />
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>" />
@@ -183,6 +183,15 @@
       letter-spacing: -0.02em;
     }
 
+    h2 {
+      margin: 0 0 12px;
+      color: var(--color-primary);
+      font-size: 1.35rem;
+      font-weight: 750;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
     p {
       margin: 0 0 18px;
       color: var(--color-text-secondary);
@@ -193,6 +202,16 @@
     .subtitle {
       color: var(--color-text-muted);
       max-width: 760px;
+    }
+
+    .subtitle a {
+      color: var(--color-text-secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .subtitle a:hover {
+      color: var(--color-primary);
     }
 
     .divider {
@@ -221,7 +240,31 @@
       gap: 12px;
     }
 
-    .card h2 {
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(var(--color-primary-rgb), 0.10);
+      border: 1px solid rgba(var(--color-primary-rgb), 0.18);
+      display: grid;
+      place-items: center;
+      color: var(--color-primary);
+      flex: 0 0 auto;
+    }
+
+    .card-icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    .card h3 {
       margin: 0;
       color: var(--color-primary);
       font-size: 1.25rem;
@@ -292,13 +335,24 @@
   <main>
     <div class="container">
       <h1>Workouts</h1>
-      <p class="subtitle">This is the training tools section — simple, practical calculators and guides you can use alongside your workouts. No accounts, no fluff. Just tools that help you train smarter.</p>
+      <p class="subtitle">This is the training tools section — simple, beginner-friendly tools you can use alongside your workouts. If you're not sure where to start, try the <a href="/workouts/macro-calculator">Macro Calculator</a> to estimate calories and macros.</p>
       <div class="divider" aria-hidden="true"></div>
 
+      <h2>Training Tools</h2>
       <div class="cards" aria-label="Workouts tools">
         <section class="card" aria-label="Macro calculator">
-          <h2>Macro Calculator</h2>
-          <p>Estimate your daily calories and macros (protein, carbs, fats) based on your stats, activity level, and goal.</p>
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 3.5h10A2.5 2.5 0 0 1 19.5 6v12A2.5 2.5 0 0 1 17 20.5H7A2.5 2.5 0 0 1 4.5 18V6A2.5 2.5 0 0 1 7 3.5Z" stroke="currentColor" stroke-width="1.8" />
+                <path d="M7.5 8h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M7.5 12h2.2M12 12h2.2M16.5 12h0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M7.5 15.5h2.2M12 15.5h2.2M16.5 15.5h0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Macro Calculator</h3>
+          </div>
+          <p>Estimate daily calories and macros (protein, carbs, fats) based on your age, height, weight, activity level, and goal.</p>
           <div class="meta">Best for beginners who want a simple starting point.</div>
           <div class="actions">
             <a class="btn" href="/workouts/macro-calculator">Open Macro Calculator</a>
@@ -306,8 +360,17 @@
         </section>
 
         <section class="card" aria-label="Workout builder coming soon">
-          <h2>Workout Builder (Coming Soon)</h2>
-          <p>Build a simple routine, track progressive overload, and keep training organised.</p>
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 10V8.5A1.5 1.5 0 0 1 7.5 7H9v10H7.5A1.5 1.5 0 0 1 6 15.5V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M18 10V8.5A1.5 1.5 0 0 0 16.5 7H15v10h1.5a1.5 1.5 0 0 0 1.5-1.5V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path d="M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Workout Builder <span class="meta">(Coming Soon)</span></h3>
+          </div>
+          <p>Create a simple routine, track progressive overload, and keep training organised.</p>
           <div class="meta">This will launch in a future update.</div>
           <div class="actions">
             <button class="btn btn-disabled" type="button" aria-disabled="true">Coming Soon</button>
