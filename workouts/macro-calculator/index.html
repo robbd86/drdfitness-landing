@@ -223,11 +223,25 @@
       margin-bottom: 14px;
     }
 
+    .hint {
+      margin-top: 6px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 10px;
+    }
+
+    .actions-help {
+      margin-top: 10px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
     }
 
     .results {
@@ -351,10 +365,12 @@
       <div class="grid">
         <section class="card" aria-label="Macro calculator inputs">
           <h2>Your details</h2>
+          <div class="hint">No perfect numbers here — just a helpful estimate based on what you enter.</div>
 
           <div class="field">
             <label for="age">Age</label>
             <input id="age" name="age" type="number" inputmode="numeric" min="13" max="99" placeholder="e.g. 28" />
+            <div class="hint">If you’re unsure, your best guess is fine.</div>
           </div>
 
           <div class="field">
@@ -363,16 +379,19 @@
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
+            <div class="hint">Used only for the BMR formula.</div>
           </div>
 
           <div class="field">
             <label for="heightCm">Height (cm)</label>
             <input id="heightCm" name="heightCm" type="number" inputmode="decimal" min="120" max="230" placeholder="e.g. 175" />
+            <div class="hint">Quick tip: if you know feet/inches, convert once and reuse it.</div>
           </div>
 
           <div class="field">
             <label for="weightKg">Weight (kg)</label>
             <input id="weightKg" name="weightKg" type="number" inputmode="decimal" min="35" max="250" placeholder="e.g. 78" />
+            <div class="hint">Use your current weight. You can update it any time.</div>
           </div>
 
           <div class="field">
@@ -384,6 +403,7 @@
               <option value="1.725">Very active (6–7 days/week)</option>
               <option value="1.9">Athlete (hard training + active job)</option>
             </select>
+            <div class="hint">If you’re between two options, pick the lower one first.</div>
           </div>
 
           <div class="field">
@@ -393,6 +413,7 @@
               <option value="maintain" selected>Maintain</option>
               <option value="gain">Build muscle</option>
             </select>
+            <div class="hint">Maintain is a great starting point for the first 1–2 weeks.</div>
           </div>
 
           <div class="actions">
@@ -400,11 +421,14 @@
             <button class="btn" id="reset" type="button">Reset</button>
           </div>
 
+          <div class="actions-help">Press Calculate to get your daily targets. If the results feel off, don’t worry — small adjustments are normal.</div>
+
           <p class="note"><strong>Tip:</strong> If you’re new, start with “Maintain” for 1–2 weeks, track your weight trend, then adjust calories slowly.</p>
         </section>
 
         <section class="card" aria-label="Macro calculator results">
           <h2>Your targets</h2>
+          <div class="hint">These are daily targets. Hit them most days and you’ll be on track.</div>
           <div class="results" role="status" aria-live="polite">
             <div class="metric">
               <div class="label">Calories / day</div>
@@ -433,7 +457,7 @@
               <li><strong>Fats:</strong> 0.8g per kg of bodyweight</li>
               <li><strong>Carbs:</strong> whatever calories are left</li>
             </ul>
-            <p class="note"><strong>Remember:</strong> This is a starting estimate. Real results come from consistency + small adjustments.</p>
+            <p class="note"><strong>Remember:</strong> This is a starting estimate. If your weight trend isn’t moving after 2–3 weeks, adjust calories slightly and keep going.</p>
           </div>
         </section>
       </div>

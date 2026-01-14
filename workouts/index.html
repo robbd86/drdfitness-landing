@@ -204,6 +204,13 @@
       max-width: 760px;
     }
 
+    .hint {
+      margin: 10px 0 0;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
     .subtitle a {
       color: var(--color-text-secondary);
       text-decoration: underline;
@@ -293,6 +300,13 @@
       flex-wrap: wrap;
     }
 
+    .micro {
+      margin-top: 8px;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
     footer {
       background: var(--color-bg-alt);
       border-top: 1px solid var(--color-border);
@@ -336,9 +350,11 @@
     <div class="container">
       <h1>Workouts</h1>
       <p class="subtitle">This is the training tools section — simple, beginner-friendly tools you can use alongside your workouts. If you're not sure where to start, try the <a href="/workouts/macro-calculator">Macro Calculator</a> to estimate calories and macros.</p>
+      <p class="hint">You don’t need a perfect plan to begin — you just need a simple next step.</p>
       <div class="divider" aria-hidden="true"></div>
 
       <h2>Training Tools</h2>
+      <p class="hint">Pick one tool, use it for a week, then adjust based on how you feel and how you’re progressing.</p>
       <div class="cards" aria-label="Workouts tools">
         <section class="card" aria-label="Macro calculator">
           <div class="card-header">
@@ -357,6 +373,7 @@
           <div class="actions">
             <a class="btn" href="/workouts/macro-calculator">Open Macro Calculator</a>
           </div>
+          <div class="micro">Not sure what to choose? Start with “Maintain” and keep it steady for 1–2 weeks.</div>
         </section>
 
         <section class="card" aria-label="Workout builder coming soon">
@@ -375,6 +392,7 @@
           <div class="actions">
             <button class="btn btn-disabled" type="button" aria-disabled="true">Coming Soon</button>
           </div>
+          <div class="micro">No stress — you can still make great progress with a simple routine and consistent effort.</div>
         </section>
       </div>
     </div>
