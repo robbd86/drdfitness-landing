@@ -309,6 +309,17 @@
       line-height: 1.5;
     }
 
+    .email-status a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .email-status a:hover {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
     .results {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -538,11 +549,11 @@
           </div>
 
           <div class="email-capture" aria-label="Optional email capture">
-            <h3>Want a simple macro + workout cheat sheet?</h3>
-            <div class="hint">Optional: leave your email and I’ll send a short beginner guide. No spam. Easy unsubscribe.</div>
+            <h3>Get the free starter guide</h3>
+            <div class="hint">Optional: enter your email to get “Train Smarter: A Simple Workout &amp; Macro Starter Guide” (practical macros + a simple 3-day plan). No spam. Easy unsubscribe.</div>
             <div class="email-row">
               <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-describedby="emailHelp" />
-              <button class="btn" id="emailSubmit" type="button">Send it</button>
+              <button class="btn" id="emailSubmit" type="button">Get it</button>
             </div>
             <div class="email-status" id="emailStatus" aria-live="polite"></div>
           </div>
@@ -738,7 +749,7 @@
     function onEmailSubmit() {
       const email = (emailEl.value || '').trim();
       if (!email) {
-        emailStatusEl.textContent = 'No pressure — add an email only if you want the guide.';
+        emailStatusEl.textContent = 'No pressure — add an email only if you want the starter guide.';
         return;
       }
 
@@ -746,9 +757,9 @@
       // Store locally so the UI behaves like a real opt-in without adding new endpoints.
       try {
         localStorage.setItem('drd_macro_email_optin', email);
-        emailStatusEl.textContent = 'Saved — if you don’t want emails, just ignore this. (No spam.)';
+        emailStatusEl.innerHTML = 'Saved — here\'s your guide: <a href="/workouts/train-smarter-starter-guide">Train Smarter Starter Guide</a>.';
       } catch (e) {
-        emailStatusEl.textContent = 'Thanks — if this didn’t save, no worries. You can still use the calculator anytime.';
+        emailStatusEl.innerHTML = 'Thanks — you can still open the guide here: <a href="/workouts/train-smarter-starter-guide">Train Smarter Starter Guide</a>.';
       }
     }
 

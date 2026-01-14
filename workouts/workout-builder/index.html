@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="impact-site-verification" content="8f866883-939f-4946-9bbf-7d47385f190c" />
+
+  <title>Workout Builder (Free) | DRD Fitness</title>
+  <meta name="description" content="Build a simple weekly workout plan based on your days, goal, and experience. Free signup to save your plan." />
+  <link rel="canonical" href="https://drdfitness.co.uk/workouts/workout-builder" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Workout Builder (Free)" />
+  <meta property="og:description" content="Build a simple weekly workout plan based on your days, goal, and experience. Free signup to save your plan." />
+  <meta property="og:url" content="https://drdfitness.co.uk/workouts/workout-builder" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>" />
+
+  <style>
+    :root {
+      --color-primary: #ff7a18;
+      --color-primary-rgb: 255, 122, 24;
+      --color-bg-main: #0b0b0b;
+      --color-bg-alt: #151515;
+      --color-bg-card: #1a1a1a;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: rgba(255, 255, 255, 0.85);
+      --color-text-muted: rgba(255, 255, 255, 0.7);
+      --color-border: #333333;
+      --color-button-text: #000000;
+      --font-family: Inter, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background: var(--color-bg-main);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* IMPORTANT: Do not modify links/URLs during layout/styling changes. */
+    .site-banner {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      background: var(--color-bg-alt);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      line-height: 0;
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      z-index: 2;
+    }
+
+    .site-banner img {
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .site-banner { padding: 6px 0; }
+      .site-banner img { max-height: 220px; }
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 22px 20px 0;
+    }
+
+    .top-nav .btn,
+    .top-nav .cta-btn {
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .btn,
+    .cta-btn {
+      display: inline-block;
+      background: var(--color-primary);
+      color: var(--color-button-text);
+      padding: 14px 26px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      min-height: 48px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .btn:hover,
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+      filter: brightness(1.05);
+    }
+
+    .btn:active,
+    .cta-btn:active {
+      transform: translateY(0);
+      filter: brightness(0.98);
+    }
+
+    .btn:focus-visible,
+    .cta-btn:focus-visible {
+      outline: none;
+      box-shadow:
+        0 4px 12px rgba(var(--color-primary-rgb), 0.3),
+        0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
+    }
+
+    .btn-disabled {
+      opacity: 0.8;
+      cursor: default;
+    }
+
+    .btn-disabled:hover,
+    .btn-disabled:active {
+      transform: none;
+      box-shadow: none;
+      filter: none;
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      background: transparent;
+      color: var(--color-text-primary);
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 650;
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      font-size: 0.98rem;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      min-height: 48px;
+      line-height: 1;
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+      background: var(--color-bg-card);
+      border-color: var(--color-primary);
+    }
+
+    .btn-ghost:active { transform: translateY(0); }
+
+    .btn-ghost:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
+      border-color: var(--color-primary);
+    }
+
+    main { padding: 44px 20px 64px; }
+
+    .container-narrow {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 5vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      color: var(--color-text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .divider {
+      width: 86px;
+      height: 1px;
+      background: var(--color-primary);
+      margin: 14px 0 26px;
+      opacity: 0.9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: var(--color-bg-card);
+      border-radius: 12px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      font-weight: 750;
+      color: var(--color-primary);
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+      font-weight: 650;
+    }
+
+    input,
+    select {
+      width: 100%;
+      background: #0f0f0f;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 12px 12px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.18);
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .hint {
+      margin-top: 6px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .row input {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .status {
+      margin-top: 10px;
+      min-height: 1.2em;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .status strong { color: var(--color-primary); }
+
+    .plan {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
+    }
+
+    .plan h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      font-weight: 750;
+    }
+
+    .day {
+      margin-top: 12px;
+      padding: 14px;
+      background: #0f0f0f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+
+    .day-title {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .micro {
+      margin-top: 10px;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    footer {
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border);
+      padding: 44px 20px;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    footer a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    footer a:hover {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-banner">
+    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
+  </header>
+
+  <nav class="top-nav" aria-label="Primary">
+    <a class="btn" href="/supplements">Supplements</a>
+    <a class="btn" href="/blog/fitness-confidence-2026">Blog</a>
+    <a class="btn" href="/workouts">Workouts</a>
+    <button class="btn btn-disabled" type="button" aria-disabled="true">Workout Builder</button>
+    <a class="btn" href="/gear">My Gear</a>
+  </nav>
+
+  <main>
+    <div class="container-narrow">
+      <h1>Workout Builder</h1>
+      <p class="subtitle">Build a simple weekly plan based on your schedule, goal, and experience. It’s designed to be clear and doable — not perfect on paper.</p>
+      <div class="divider" aria-hidden="true"></div>
+
+      <div id="gate" class="grid">
+        <section class="card" aria-label="Workout Builder signup gate">
+          <h2>Create a free account to continue</h2>
+          <p class="hint">This keeps things simple: you can save your workout plan, come back later, and get a plan that fits your goal and experience.</p>
+          <p class="hint">It’s free. No spam. You can unsubscribe anytime.</p>
+
+          <div class="field">
+            <label for="signupName">First name (optional)</label>
+            <input id="signupName" name="signupName" type="text" autocomplete="given-name" placeholder="e.g. Sam" />
+          </div>
+
+          <div class="field">
+            <label for="signupEmail">Email</label>
+            <input id="signupEmail" name="signupEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" />
+            <div class="hint">We use this to link saved plans to you (on this device).</div>
+          </div>
+
+          <div class="row">
+            <button class="btn" id="signupBtn" type="button">Create free account</button>
+          </div>
+
+          <div class="status" id="gateStatus" aria-live="polite"></div>
+          <div class="micro">Already signed up on this device? Just enter your email and press “Create free account”.</div>
+        </section>
+
+        <section class="card" aria-label="What you get">
+          <h2>What you’ll get</h2>
+          <ul>
+            <li>A simple weekly plan you can actually follow</li>
+            <li>Clear exercise choices + sets and reps</li>
+            <li>A way to save and revisit your plan</li>
+          </ul>
+          <p class="micro"><strong>Note:</strong> This is an MVP. It’s meant to remove decision fatigue — not replace coaching.</p>
+        </section>
+      </div>
+
+      <div id="builder" class="grid" hidden>
+        <section class="card" aria-label="Workout Builder inputs">
+          <h2>Your plan settings</h2>
+          <div class="hint">Pick something you can stick to. The best plan is the one you repeat for a few weeks.</div>
+
+          <div class="field">
+            <label for="days">Days per week</label>
+            <select id="days" name="days">
+              <option value="2">2 days</option>
+              <option value="3" selected>3 days</option>
+              <option value="4">4 days</option>
+              <option value="5">5 days</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="goal">Goal</label>
+            <select id="goal" name="goal">
+              <option value="lose">Lose fat</option>
+              <option value="maintain" selected>Maintain</option>
+              <option value="gain">Build muscle</option>
+            </select>
+            <div class="hint">The plan structure stays simple — the main difference is how hard you push and how you progress.</div>
+          </div>
+
+          <div class="field">
+            <label for="experience">Experience level</label>
+            <select id="experience" name="experience">
+              <option value="beginner" selected>Beginner</option>
+              <option value="intermediate">Intermediate</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <button class="btn" id="generate" type="button">Generate plan</button>
+            <button class="btn-ghost" id="save" type="button">Save plan</button>
+            <button class="btn-ghost" id="logout" type="button">Log out</button>
+          </div>
+
+          <div class="status" id="builderStatus" aria-live="polite"></div>
+          <div class="micro">Tip: Keep the same plan for 4–6 weeks. Small progress each week adds up.</div>
+        </section>
+
+        <section class="card" aria-label="Workout Builder output">
+          <h2>Your weekly plan</h2>
+          <div class="hint">This is a simple template. Choose exercises you can perform with good form and control.</div>
+
+          <div class="plan" id="plan" hidden>
+            <h3 id="planTitle">Plan</h3>
+            <div id="planDays"></div>
+            <div class="micro"><strong>Progress rule:</strong> when you hit the top of the rep range for all sets, add a small amount of weight next time.</div>
+          </div>
+
+          <div class="status" id="planEmpty">Generate a plan to see your week.</div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>&copy; 2026 <a href="/">DRD Fitness</a>. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const STORAGE_USER_KEY = 'drd_workout_builder_user';
+    const STORAGE_PLAN_KEY_PREFIX = 'drd_workout_builder_plan:';
+
+    const gateEl = document.getElementById('gate');
+    const builderEl = document.getElementById('builder');
+
+    const signupNameEl = document.getElementById('signupName');
+    const signupEmailEl = document.getElementById('signupEmail');
+    const signupBtnEl = document.getElementById('signupBtn');
+    const gateStatusEl = document.getElementById('gateStatus');
+
+    const daysEl = document.getElementById('days');
+    const goalEl = document.getElementById('goal');
+    const experienceEl = document.getElementById('experience');
+    const generateEl = document.getElementById('generate');
+    const saveEl = document.getElementById('save');
+    const logoutEl = document.getElementById('logout');
+    const builderStatusEl = document.getElementById('builderStatus');
+
+    const planEl = document.getElementById('plan');
+    const planTitleEl = document.getElementById('planTitle');
+    const planDaysEl = document.getElementById('planDays');
+    const planEmptyEl = document.getElementById('planEmpty');
+
+    function safeJsonParse(value) {
+      try { return JSON.parse(value); } catch { return null; }
+    }
+
+    function getUser() {
+      const raw = localStorage.getItem(STORAGE_USER_KEY);
+      if (!raw) return null;
+      const user = safeJsonParse(raw);
+      if (!user || !user.email) return null;
+      return user;
+    }
+
+    function setUser(user) {
+      localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
+    }
+
+    function clearUser() {
+      localStorage.removeItem(STORAGE_USER_KEY);
+    }
+
+    function getPlanKey(email) {
+      return STORAGE_PLAN_KEY_PREFIX + String(email).toLowerCase();
+    }
+
+    function setSavedPlan(email, plan) {
+      localStorage.setItem(getPlanKey(email), JSON.stringify(plan));
+    }
+
+    function getSavedPlan(email) {
+      const raw = localStorage.getItem(getPlanKey(email));
+      if (!raw) return null;
+      return safeJsonParse(raw);
+    }
+
+    function isValidEmail(email) {
+      // Lightweight check; keep it friendly.
+      return /\S+@\S+\.\S+/.test(email);
+    }
+
+    function showGate() {
+      gateEl.hidden = false;
+      builderEl.hidden = true;
+    }
+
+    function showBuilder() {
+      gateEl.hidden = true;
+      builderEl.hidden = false;
+    }
+
+    function clearPlanUI() {
+      planEl.hidden = true;
+      planDaysEl.innerHTML = '';
+      planEmptyEl.textContent = 'Generate a plan to see your week.';
+    }
+
+    function renderPlan(plan) {
+      if (!plan || !plan.days || !Array.isArray(plan.days) || plan.days.length === 0) {
+        clearPlanUI();
+        return;
+      }
+
+      planTitleEl.textContent = plan.title || 'Your weekly plan';
+
+      planDaysEl.innerHTML = '';
+      for (const day of plan.days) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'day';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'day-title';
+        titleEl.textContent = day.name;
+        dayEl.appendChild(titleEl);
+
+        const list = document.createElement('ul');
+        for (const item of day.items) {
+          const li = document.createElement('li');
+          li.textContent = item;
+          list.appendChild(li);
+        }
+        dayEl.appendChild(list);
+
+        if (day.note) {
+          const note = document.createElement('div');
+          note.className = 'micro';
+          note.textContent = day.note;
+          dayEl.appendChild(note);
+        }
+
+        planDaysEl.appendChild(dayEl);
+      }
+
+      planEmptyEl.textContent = '';
+      planEl.hidden = false;
+    }
+
+    function generateBeginnerFullBody(daysCount, goal) {
+      const repRange = goal === 'gain' ? '6–10 reps' : '8–12 reps';
+      const sets = goal === 'gain' ? '3–4 sets' : '3 sets';
+
+      const A = {
+        name: 'Day A (Full Body)',
+        items: [
+          `Squat pattern: ${sets} x ${repRange}`,
+          `Horizontal push: ${sets} x ${repRange}`,
+          `Horizontal pull: ${sets} x ${repRange}`,
+          `Hip hinge: 2–3 sets x ${repRange}`,
+          'Optional core: 2 sets (30–60 seconds)'
+        ],
+        note: 'Leave 1–3 reps in the tank. Clean reps first.'
+      };
+
+      const B = {
+        name: 'Day B (Full Body)',
+        items: [
+          `Hinge pattern: ${sets} x ${repRange}`,
+          `Vertical push: ${sets} x ${repRange}`,
+          `Vertical pull: ${sets} x ${repRange}`,
+          `Single-leg: 2–3 sets x ${repRange} (each side)`,
+          'Optional core: 2 sets (8–12 reps each side)'
+        ],
+        note: 'Keep the same exercises for 4–6 weeks before changing.'
+      };
+
+      const C = {
+        name: 'Day C (Full Body)',
+        items: [
+          `Squat pattern (variation): ${sets} x ${repRange}`,
+          `Horizontal push (variation): ${sets} x ${repRange}`,
+          `Horizontal pull (variation): ${sets} x ${repRange}`,
+          'Posterior chain: 2–3 sets x 10–15 reps',
+          goal === 'lose' ? 'Optional conditioning: 10–20 min easy incline walk' : 'Optional arms: 2 sets x 10–15 reps'
+        ],
+        note: 'Small progress each week adds up.'
+      };
+
+      if (daysCount === 2) return [A, B];
+      if (daysCount === 3) return [A, B, C];
+      if (daysCount === 4) return [A, B, C, A];
+      return [A, B, C, A, B];
+    }
+
+    function generateIntermediateSplit(daysCount, goal) {
+      const repRangeMain = goal === 'gain' ? '5–10 reps' : '6–12 reps';
+      const repRangeAccessory = '10–15 reps';
+
+      const Upper = {
+        name: 'Upper',
+        items: [
+          `Horizontal push: 3–4 sets x ${repRangeMain}`,
+          `Horizontal pull: 3–4 sets x ${repRangeMain}`,
+          `Vertical push: 2–3 sets x ${repRangeMain}`,
+          `Vertical pull: 2–3 sets x ${repRangeMain}`,
+          `Optional arms: 2–3 sets x ${repRangeAccessory}`
+        ],
+        note: 'Pick variations you can progress safely.'
+      };
+
+      const Lower = {
+        name: 'Lower',
+        items: [
+          `Squat pattern: 3–4 sets x ${repRangeMain}`,
+          `Hinge pattern: 3–4 sets x ${repRangeMain}`,
+          `Single-leg: 2–3 sets x ${repRangeMain}`,
+          `Hamstrings or posterior chain: 2–3 sets x ${repRangeAccessory}`,
+          'Optional core: 2 sets'
+        ],
+        note: 'Avoid grinding reps. Stop with 1–2 reps left.'
+      };
+
+      const Full = {
+        name: 'Full Body',
+        items: [
+          `Squat or hinge: 3 sets x ${repRangeMain}`,
+          `Push: 3 sets x ${repRangeMain}`,
+          `Pull: 3 sets x ${repRangeMain}`,
+          `Accessory (weak point): 2 sets x ${repRangeAccessory}`,
+          goal === 'lose' ? 'Optional conditioning: 10–20 min easy walk' : 'Optional core: 2 sets'
+        ],
+        note: 'Keep it simple: quality work, repeatable week to week.'
+      };
+
+      if (daysCount === 2) return [Full, Full];
+      if (daysCount === 3) return [Upper, Lower, Full];
+      if (daysCount === 4) return [Upper, Lower, Upper, Lower];
+      return [Upper, Lower, Upper, Lower, Full];
+    }
+
+    function generatePlan({ daysCount, goal, experience }) {
+      const days = experience === 'intermediate'
+        ? generateIntermediateSplit(daysCount, goal)
+        : generateBeginnerFullBody(daysCount, goal);
+
+      const goalLabel = goal === 'lose' ? 'Lose fat' : (goal === 'gain' ? 'Build muscle' : 'Maintain');
+      const expLabel = experience === 'intermediate' ? 'Intermediate' : 'Beginner';
+
+      return {
+        title: `${daysCount}-Day Plan • ${goalLabel} • ${expLabel}`,
+        createdAt: Date.now(),
+        inputs: { daysCount, goal, experience },
+        days
+      };
+    }
+
+    function hydrateFromSavedPlan(user) {
+      if (!user) return;
+      const saved = getSavedPlan(user.email);
+      if (!saved) {
+        builderStatusEl.innerHTML = '<strong>Tip:</strong> Generate a plan, then save it so you can come back anytime.';
+        clearPlanUI();
+        return;
+      }
+
+      const inputs = saved.inputs || {};
+      if (inputs.daysCount) daysEl.value = String(inputs.daysCount);
+      if (inputs.goal) goalEl.value = String(inputs.goal);
+      if (inputs.experience) experienceEl.value = String(inputs.experience);
+
+      builderStatusEl.textContent = 'Loaded your last saved plan.';
+      renderPlan(saved);
+    }
+
+    function render() {
+      const user = getUser();
+      if (!user) {
+        showGate();
+        gateStatusEl.textContent = '';
+        return;
+      }
+
+      showBuilder();
+      builderStatusEl.textContent = '';
+      hydrateFromSavedPlan(user);
+    }
+
+    function onSignup() {
+      const email = String(signupEmailEl.value || '').trim();
+      const name = String(signupNameEl.value || '').trim();
+
+      if (!email) {
+        gateStatusEl.innerHTML = '<strong>Heads up:</strong> please add your email to continue.';
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        gateStatusEl.innerHTML = '<strong>Heads up:</strong> please enter a valid email.';
+        return;
+      }
+
+      setUser({
+        email,
+        name,
+        createdAt: Date.now()
+      });
+
+      signupEmailEl.value = '';
+      signupNameEl.value = '';
+      gateStatusEl.textContent = '';
+      render();
+    }
+
+    function onLogout() {
+      clearUser();
+      clearPlanUI();
+      builderStatusEl.textContent = '';
+      render();
+    }
+
+    function onGenerate() {
+      const user = getUser();
+      if (!user) {
+        render();
+        return;
+      }
+
+      const plan = generatePlan({
+        daysCount: Number(daysEl.value),
+        goal: goalEl.value,
+        experience: experienceEl.value
+      });
+
+      builderStatusEl.textContent = 'Plan generated. If you like it, press Save plan.';
+      renderPlan(plan);
+    }
+
+    function onSave() {
+      const user = getUser();
+      if (!user) {
+        render();
+        return;
+      }
+
+      if (planEl.hidden) {
+        builderStatusEl.innerHTML = '<strong>Heads up:</strong> generate a plan first, then save it.';
+        return;
+      }
+
+      const plan = generatePlan({
+        daysCount: Number(daysEl.value),
+        goal: goalEl.value,
+        experience: experienceEl.value
+      });
+
+      setSavedPlan(user.email, plan);
+      builderStatusEl.textContent = 'Saved. You can come back to this page anytime to load it.';
+      renderPlan(plan);
+    }
+
+    signupBtnEl.addEventListener('click', onSignup);
+    generateEl.addEventListener('click', onGenerate);
+    saveEl.addEventListener('click', onSave);
+    logoutEl.addEventListener('click', onLogout);
+
+    render();
+  </script>
+</body>
+</html>
