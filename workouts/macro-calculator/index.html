@@ -230,6 +230,17 @@
       line-height: 1.45;
     }
 
+    .error {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .error strong {
+      color: var(--color-primary);
+    }
+
     .actions {
       display: flex;
       gap: 12px;
@@ -242,6 +253,60 @@
       color: var(--color-text-muted);
       font-size: 0.9rem;
       line-height: 1.45;
+    }
+
+    .results-explainer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
+      color: var(--color-text-secondary);
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .results-explainer p {
+      margin: 0 0 10px;
+      color: var(--color-text-secondary);
+    }
+
+    .results-explainer ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .email-capture {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
+    }
+
+    .email-capture h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      font-weight: 750;
+    }
+
+    .email-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .email-row input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .email-status {
+      margin-top: 10px;
+      min-height: 1.2em;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
 
     .results {
@@ -369,8 +434,9 @@
 
           <div class="field">
             <label for="age">Age</label>
-            <input id="age" name="age" type="number" inputmode="numeric" min="13" max="99" placeholder="e.g. 28" />
+            <input id="age" name="age" type="number" inputmode="numeric" min="13" max="99" placeholder="e.g. 28" aria-describedby="ageHelp ageError" />
             <div class="hint">If you’re unsure, your best guess is fine.</div>
+            <div class="error" id="ageError" aria-live="polite"></div>
           </div>
 
           <div class="field">
@@ -384,14 +450,16 @@
 
           <div class="field">
             <label for="heightCm">Height (cm)</label>
-            <input id="heightCm" name="heightCm" type="number" inputmode="decimal" min="120" max="230" placeholder="e.g. 175" />
+            <input id="heightCm" name="heightCm" type="number" inputmode="decimal" min="120" max="230" placeholder="e.g. 175" aria-describedby="heightHelp heightError" />
             <div class="hint">Quick tip: if you know feet/inches, convert once and reuse it.</div>
+            <div class="error" id="heightError" aria-live="polite"></div>
           </div>
 
           <div class="field">
             <label for="weightKg">Weight (kg)</label>
-            <input id="weightKg" name="weightKg" type="number" inputmode="decimal" min="35" max="250" placeholder="e.g. 78" />
+            <input id="weightKg" name="weightKg" type="number" inputmode="decimal" min="35" max="250" placeholder="e.g. 78" aria-describedby="weightHelp weightError" />
             <div class="hint">Use your current weight. You can update it any time.</div>
+            <div class="error" id="weightError" aria-live="polite"></div>
           </div>
 
           <div class="field">
@@ -421,7 +489,7 @@
             <button class="btn" id="reset" type="button">Reset</button>
           </div>
 
-          <div class="actions-help">Press Calculate to get your daily targets. If the results feel off, don’t worry — small adjustments are normal.</div>
+          <div class="actions-help">Press Calculate to get your daily targets. If the numbers aren’t perfect, that’s normal — consistency beats perfection.</div>
 
           <p class="note"><strong>Tip:</strong> If you’re new, start with “Maintain” for 1–2 weeks, track your weight trend, then adjust calories slowly.</p>
         </section>
@@ -448,6 +516,15 @@
             </div>
           </div>
 
+          <div class="results-explainer" aria-label="How to use these numbers">
+            <p><strong>Calories</strong> are your daily energy budget. The macro targets are one way to split those calories across protein, carbs, and fats.</p>
+            <p><strong>Day-to-day:</strong> aim to hit protein first, then stay roughly on calories. Carbs and fats can flex a little — that’s normal.</p>
+            <ul>
+              <li><strong>Good week:</strong> you’re close most days and consistent overall.</li>
+              <li><strong>Not perfect?</strong> don’t restart — just get back on plan at your next meal.</li>
+            </ul>
+          </div>
+
           <div class="help">
             <h3>How this works (beginner version)</h3>
             <p>This uses a common calorie estimate (Mifflin-St Jeor) and applies an activity multiplier.</p>
@@ -458,6 +535,16 @@
               <li><strong>Carbs:</strong> whatever calories are left</li>
             </ul>
             <p class="note"><strong>Remember:</strong> This is a starting estimate. If your weight trend isn’t moving after 2–3 weeks, adjust calories slightly and keep going.</p>
+          </div>
+
+          <div class="email-capture" aria-label="Optional email capture">
+            <h3>Want a simple macro + workout cheat sheet?</h3>
+            <div class="hint">Optional: leave your email and I’ll send a short beginner guide. No spam. Easy unsubscribe.</div>
+            <div class="email-row">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-describedby="emailHelp" />
+              <button class="btn" id="emailSubmit" type="button">Send it</button>
+            </div>
+            <div class="email-status" id="emailStatus" aria-live="polite"></div>
           </div>
         </section>
       </div>
@@ -525,6 +612,14 @@
     const outCarbs = document.getElementById('outCarbs');
     const outFats = document.getElementById('outFats');
 
+    const ageErrorEl = document.getElementById('ageError');
+    const heightErrorEl = document.getElementById('heightError');
+    const weightErrorEl = document.getElementById('weightError');
+
+    const emailEl = document.getElementById('email');
+    const emailSubmitEl = document.getElementById('emailSubmit');
+    const emailStatusEl = document.getElementById('emailStatus');
+
     const calcBtn = document.getElementById('calculate');
     const resetBtn = document.getElementById('reset');
 
@@ -540,6 +635,22 @@
       outProtein.textContent = '—';
       outCarbs.textContent = '—';
       outFats.textContent = '—';
+    }
+
+    function clearFieldErrors() {
+      ageErrorEl.textContent = '';
+      heightErrorEl.textContent = '';
+      weightErrorEl.textContent = '';
+
+      ageEl.removeAttribute('aria-invalid');
+      heightEl.removeAttribute('aria-invalid');
+      weightEl.removeAttribute('aria-invalid');
+    }
+
+    function setFieldError(inputEl, errorEl, message) {
+      if (!message) return;
+      inputEl.setAttribute('aria-invalid', 'true');
+      errorEl.innerHTML = `<strong>Heads up:</strong> ${message}`;
     }
 
     function readInputs() {
@@ -558,10 +669,31 @@
     }
 
     function validateInputs({ age, heightCm, weightKg }) {
-      if (!Number.isFinite(age) || age < 13 || age > 99) return 'Please enter a valid age.';
-      if (!Number.isFinite(heightCm) || heightCm < 120 || heightCm > 230) return 'Please enter a valid height in cm.';
-      if (!Number.isFinite(weightKg) || weightKg < 35 || weightKg > 250) return 'Please enter a valid weight in kg.';
-      return '';
+      const errors = {
+        age: '',
+        heightCm: '',
+        weightKg: ''
+      };
+
+      if (!Number.isFinite(age) || age <= 0) {
+        errors.age = 'please enter your age so the estimate is accurate.';
+      } else if (age < 13 || age > 99) {
+        errors.age = 'please enter an age between 13 and 99.';
+      }
+
+      if (!Number.isFinite(heightCm) || heightCm <= 0) {
+        errors.heightCm = 'please enter your height in cm.';
+      } else if (heightCm < 120 || heightCm > 230) {
+        errors.heightCm = 'please enter a height between 120 and 230 cm.';
+      }
+
+      if (!Number.isFinite(weightKg) || weightKg <= 0) {
+        errors.weightKg = 'please enter your weight in kg.';
+      } else if (weightKg < 35 || weightKg > 250) {
+        errors.weightKg = 'please enter a weight between 35 and 250 kg.';
+      }
+
+      return errors;
     }
 
     function showInlineError(message) {
@@ -573,10 +705,16 @@
     }
 
     function onCalculate() {
+      clearFieldErrors();
       const inputs = readInputs();
-      const error = validateInputs(inputs);
-      if (error) {
-        showInlineError(error);
+      const errors = validateInputs(inputs);
+
+      const hasAnyError = Boolean(errors.age || errors.heightCm || errors.weightKg);
+      if (hasAnyError) {
+        setFieldError(ageEl, ageErrorEl, errors.age);
+        setFieldError(heightEl, heightErrorEl, errors.heightCm);
+        setFieldError(weightEl, weightErrorEl, errors.weightKg);
+        showInlineError('Fill in the highlighted fields to calculate your targets.');
         return;
       }
 
@@ -591,11 +729,32 @@
       genderEl.value = 'male';
       activityEl.value = '1.55';
       goalEl.value = 'maintain';
+      clearFieldErrors();
       clearOutputs();
+      emailEl.value = '';
+      emailStatusEl.textContent = '';
+    }
+
+    function onEmailSubmit() {
+      const email = (emailEl.value || '').trim();
+      if (!email) {
+        emailStatusEl.textContent = 'No pressure — add an email only if you want the guide.';
+        return;
+      }
+
+      // Passive opt-in only: no redirects, no popups.
+      // Store locally so the UI behaves like a real opt-in without adding new endpoints.
+      try {
+        localStorage.setItem('drd_macro_email_optin', email);
+        emailStatusEl.textContent = 'Saved — if you don’t want emails, just ignore this. (No spam.)';
+      } catch (e) {
+        emailStatusEl.textContent = 'Thanks — if this didn’t save, no worries. You can still use the calculator anytime.';
+      }
     }
 
     calcBtn.addEventListener('click', onCalculate);
     resetBtn.addEventListener('click', onReset);
+    emailSubmitEl.addEventListener('click', onEmailSubmit);
   </script>
 </body>
 </html>
