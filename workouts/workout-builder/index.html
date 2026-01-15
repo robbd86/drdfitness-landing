@@ -278,6 +278,99 @@
       margin-top: 14px;
       padding-top: 14px;
       border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
+      position: relative;
+    }
+
+    .plan-watermark {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0.08;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      color: var(--color-text-primary);
+      transform: rotate(-12deg);
+      user-select: none;
+    }
+
+    .plan-watermark[data-visible="true"] {
+      display: flex;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1;
+      margin-top: 10px;
+    }
+
+    .pill strong { color: var(--color-primary); }
+
+    details {
+      background: #0f0f0f;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 12px;
+      margin-top: 12px;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 750;
+      color: var(--color-text-secondary);
+      list-style: none;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0f0f0f;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .table th {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      font-weight: 750;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table tr:last-child td { border-bottom: none; }
+
+    .exercise-select {
+      width: 100%;
+      min-width: 180px;
+      margin-top: 6px;
+    }
+
+    .muted {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
     }
 
     .plan h3 {
@@ -379,10 +472,12 @@
 
           <div class="row">
             <button class="btn" id="signupBtn" type="button">Create free account</button>
+            <button class="btn-ghost" id="guestBtn" type="button">Continue without saving</button>
           </div>
 
           <div class="status" id="gateStatus" aria-live="polite"></div>
           <div class="micro">Already signed up on this device? Just enter your email and press “Create free account”.</div>
+          <div class="micro"><strong>Guest mode:</strong> you can generate a plan, but it won’t be saved (you’ll see an “UNSAVED” watermark).</div>
         </section>
 
         <section class="card" aria-label="What you get">
@@ -429,9 +524,55 @@
             </select>
           </div>
 
+          <details id="advanced">
+            <summary>Advanced options (optional)</summary>
+
+            <div class="field" style="margin-top: 12px;">
+              <label for="sessionLength">Session length</label>
+              <select id="sessionLength" name="sessionLength">
+                <option value="45">~45 minutes</option>
+                <option value="60" selected>~60 minutes</option>
+                <option value="75">~75 minutes</option>
+              </select>
+              <div class="hint">Shorter sessions prioritize the main lifts. Longer sessions add a little extra work.</div>
+            </div>
+
+            <div class="field">
+              <label for="equipment">Equipment preference</label>
+              <select id="equipment" name="equipment">
+                <option value="mixed" selected>Mixed</option>
+                <option value="machines">Machines</option>
+                <option value="dumbbells">Dumbbells</option>
+                <option value="barbell">Barbell</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="priority">Training priority</label>
+              <select id="priority" name="priority">
+                <option value="hypertrophy" selected>Hypertrophy (muscle)</option>
+                <option value="strength">Strength (performance)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="weakPoint">Weak point focus (optional)</label>
+              <select id="weakPoint" name="weakPoint">
+                <option value="none" selected>None</option>
+                <option value="back">Back</option>
+                <option value="shoulders">Shoulders</option>
+                <option value="glutes">Glutes</option>
+                <option value="arms">Arms</option>
+                <option value="core">Core</option>
+              </select>
+              <div class="hint">This only nudges accessory choices. Keep the plan repeatable.</div>
+            </div>
+          </details>
+
           <div class="row">
             <button class="btn" id="generate" type="button">Generate plan</button>
             <button class="btn-ghost" id="save" type="button">Save plan</button>
+            <button class="btn-ghost" id="print" type="button">Print plan</button>
             <button class="btn-ghost" id="logout" type="button">Log out</button>
           </div>
 
@@ -444,7 +585,9 @@
           <div class="hint">This is a simple template. Choose exercises you can perform with good form and control.</div>
 
           <div class="plan" id="plan" hidden>
+            <div class="plan-watermark" id="planWatermark" aria-hidden="true">UNSAVED</div>
             <h3 id="planTitle">Plan</h3>
+            <div class="pill" id="planMeta" hidden></div>
             <div id="planDays"></div>
             <div class="micro"><strong>Progress rule:</strong> when you hit the top of the rep range for all sets, add a small amount of weight next time.</div>
           </div>
@@ -462,6 +605,7 @@
   <script>
     const STORAGE_USER_KEY = 'drd_workout_builder_user';
     const STORAGE_PLAN_KEY_PREFIX = 'drd_workout_builder_plan:';
+    const STORAGE_GUEST_KEY = 'drd_workout_builder_guest';
 
     const gateEl = document.getElementById('gate');
     const builderEl = document.getElementById('builder');
@@ -469,6 +613,7 @@
     const signupNameEl = document.getElementById('signupName');
     const signupEmailEl = document.getElementById('signupEmail');
     const signupBtnEl = document.getElementById('signupBtn');
+    const guestBtnEl = document.getElementById('guestBtn');
     const gateStatusEl = document.getElementById('gateStatus');
 
     const daysEl = document.getElementById('days');
@@ -476,13 +621,21 @@
     const experienceEl = document.getElementById('experience');
     const generateEl = document.getElementById('generate');
     const saveEl = document.getElementById('save');
+    const printEl = document.getElementById('print');
     const logoutEl = document.getElementById('logout');
     const builderStatusEl = document.getElementById('builderStatus');
 
     const planEl = document.getElementById('plan');
     const planTitleEl = document.getElementById('planTitle');
+    const planMetaEl = document.getElementById('planMeta');
     const planDaysEl = document.getElementById('planDays');
     const planEmptyEl = document.getElementById('planEmpty');
+    const planWatermarkEl = document.getElementById('planWatermark');
+
+    const sessionLengthEl = document.getElementById('sessionLength');
+    const equipmentEl = document.getElementById('equipment');
+    const priorityEl = document.getElementById('priority');
+    const weakPointEl = document.getElementById('weakPoint');
 
     function safeJsonParse(value) {
       try { return JSON.parse(value); } catch { return null; }
@@ -494,6 +647,15 @@
       const user = safeJsonParse(raw);
       if (!user || !user.email) return null;
       return user;
+    }
+
+    function isGuest() {
+      return localStorage.getItem(STORAGE_GUEST_KEY) === '1';
+    }
+
+    function setGuest(enabled) {
+      if (enabled) localStorage.setItem(STORAGE_GUEST_KEY, '1');
+      else localStorage.removeItem(STORAGE_GUEST_KEY);
     }
 
     function setUser(user) {
@@ -537,6 +699,104 @@
       planEl.hidden = true;
       planDaysEl.innerHTML = '';
       planEmptyEl.textContent = 'Generate a plan to see your week.';
+      planMetaEl.hidden = true;
+      planMetaEl.textContent = '';
+      planWatermarkEl.dataset.visible = 'false';
+    }
+
+    function getExerciseLibrary() {
+      // Preset-only swaps for now. Keep structure open for future custom entries.
+      return {
+        squat: {
+          barbell: ['Back squat', 'Front squat', 'High-bar squat'],
+          dumbbells: ['Goblet squat', 'Dumbbell front squat'],
+          machines: ['Leg press', 'Hack squat', 'Smith machine squat'],
+          mixed: ['Back squat', 'Leg press', 'Goblet squat', 'Hack squat']
+        },
+        hinge: {
+          barbell: ['Romanian deadlift', 'Deadlift (technique focus)', 'Good morning (light)'],
+          dumbbells: ['Dumbbell Romanian deadlift', 'Dumbbell hip hinge'],
+          machines: ['Hip thrust machine', 'Cable pull-through', 'Back extension'],
+          mixed: ['Romanian deadlift', 'Dumbbell Romanian deadlift', 'Back extension', 'Hip thrust']
+        },
+        horizontal_push: {
+          barbell: ['Bench press', 'Incline bench press'],
+          dumbbells: ['Dumbbell bench press', 'Incline dumbbell press'],
+          machines: ['Chest press machine', 'Smith machine bench'],
+          mixed: ['Bench press', 'Dumbbell bench press', 'Incline dumbbell press', 'Chest press machine']
+        },
+        horizontal_pull: {
+          barbell: ['Barbell row', 'Pendlay row (light)'],
+          dumbbells: ['One-arm dumbbell row', 'Chest-supported dumbbell row'],
+          machines: ['Seated cable row', 'Chest-supported row machine'],
+          mixed: ['Seated cable row', 'One-arm dumbbell row', 'Chest-supported row', 'Barbell row']
+        },
+        vertical_push: {
+          barbell: ['Overhead press', 'Push press (controlled)'],
+          dumbbells: ['Dumbbell shoulder press', 'Seated dumbbell press'],
+          machines: ['Shoulder press machine', 'Smith machine overhead press'],
+          mixed: ['Dumbbell shoulder press', 'Overhead press', 'Shoulder press machine']
+        },
+        vertical_pull: {
+          barbell: ['Pull-up (assisted if needed)', 'Chin-up (assisted if needed)'],
+          dumbbells: ['Single-arm lat pull-over (bench)', 'Dumbbell row (elbow path up)'],
+          machines: ['Lat pulldown', 'Assisted pull-up'],
+          mixed: ['Lat pulldown', 'Assisted pull-up', 'Pull-up', 'Chin-up']
+        },
+        single_leg: {
+          barbell: ['Split squat (barbell)', 'Reverse lunge (barbell)'],
+          dumbbells: ['Bulgarian split squat', 'Dumbbell walking lunge'],
+          machines: ['Leg extension', 'Leg curl', 'Hack split stance (if available)'],
+          mixed: ['Bulgarian split squat', 'Reverse lunge', 'Leg extension']
+        },
+        posterior_chain: {
+          barbell: ['Hip thrust', 'Romanian deadlift (light)'],
+          dumbbells: ['Dumbbell hip thrust', 'Dumbbell Romanian deadlift (light)'],
+          machines: ['Leg curl', 'Back extension', 'Glute bridge machine'],
+          mixed: ['Leg curl', 'Back extension', 'Hip thrust']
+        },
+        core: {
+          barbell: ['Plank', 'Dead bug'],
+          dumbbells: ['Side plank', 'Dead bug'],
+          machines: ['Cable crunch', 'Pallof press'],
+          mixed: ['Plank', 'Cable crunch', 'Pallof press', 'Side plank']
+        },
+        arms: {
+          barbell: ['EZ-bar curl', 'Close-grip bench press'],
+          dumbbells: ['Dumbbell curl', 'Overhead triceps extension'],
+          machines: ['Cable curl', 'Triceps pushdown'],
+          mixed: ['Cable curl', 'Triceps pushdown', 'Dumbbell curl']
+        },
+        conditioning: {
+          barbell: ['Incline treadmill walk', 'Bike (easy)'],
+          dumbbells: ['Incline treadmill walk', 'Bike (easy)'],
+          machines: ['Incline treadmill walk', 'Bike (easy)', 'Row (easy)'],
+          mixed: ['Incline treadmill walk', 'Bike (easy)']
+        }
+      };
+    }
+
+    function pickOptionsForPattern(library, pattern, equipment) {
+      const group = library[pattern];
+      if (!group) return ['Choose an exercise'];
+      return group[equipment] || group.mixed || ['Choose an exercise'];
+    }
+
+    function buildRow({ patternKey, patternLabel, sets, reps, rest, note }, context) {
+      const library = context.library;
+      const options = pickOptionsForPattern(library, patternKey, context.equipment);
+      const exercise = options[0];
+      return {
+        id: `${patternKey}:${Math.random().toString(16).slice(2)}`,
+        patternKey,
+        patternLabel,
+        exercise,
+        options,
+        sets,
+        reps,
+        rest,
+        note
+      };
     }
 
     function renderPlan(plan) {
@@ -546,6 +806,21 @@
       }
 
       planTitleEl.textContent = plan.title || 'Your weekly plan';
+
+      // Meta badge
+      const metaBits = [];
+      if (plan.meta?.mode) metaBits.push(plan.meta.mode);
+      if (plan.meta?.equipmentLabel) metaBits.push(plan.meta.equipmentLabel);
+      if (plan.meta?.sessionLabel) metaBits.push(plan.meta.sessionLabel);
+      if (metaBits.length) {
+        planMetaEl.innerHTML = `<strong>Plan:</strong> ${metaBits.join(' • ')}`;
+        planMetaEl.hidden = false;
+      } else {
+        planMetaEl.hidden = true;
+        planMetaEl.textContent = '';
+      }
+
+      planWatermarkEl.dataset.visible = plan.meta?.guest ? 'true' : 'false';
 
       planDaysEl.innerHTML = '';
       for (const day of plan.days) {
@@ -557,13 +832,76 @@
         titleEl.textContent = day.name;
         dayEl.appendChild(titleEl);
 
-        const list = document.createElement('ul');
-        for (const item of day.items) {
-          const li = document.createElement('li');
-          li.textContent = item;
-          list.appendChild(li);
+        const table = document.createElement('table');
+        table.className = 'table';
+        table.innerHTML = `
+          <thead>
+            <tr>
+              <th style="width: 40%;">Exercise</th>
+              <th style="width: 14%;">Sets</th>
+              <th style="width: 16%;">Reps</th>
+              <th style="width: 16%;">Rest</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        `;
+
+        const tbody = table.querySelector('tbody');
+
+        for (const row of day.rows) {
+          const tr = document.createElement('tr');
+
+          const exerciseCell = document.createElement('td');
+          const label = document.createElement('div');
+          label.style.fontWeight = '800';
+          label.style.letterSpacing = '-0.01em';
+          label.textContent = row.patternLabel;
+
+          const current = document.createElement('div');
+          current.className = 'muted';
+          current.textContent = row.exercise;
+
+          const select = document.createElement('select');
+          select.className = 'exercise-select';
+          select.setAttribute('aria-label', `Swap exercise for ${row.patternLabel}`);
+          for (const opt of row.options) {
+            const optionEl = document.createElement('option');
+            optionEl.value = opt;
+            optionEl.textContent = opt;
+            select.appendChild(optionEl);
+          }
+          select.value = row.exercise;
+          select.addEventListener('change', () => {
+            current.textContent = select.value;
+          });
+
+          exerciseCell.appendChild(label);
+          exerciseCell.appendChild(current);
+          exerciseCell.appendChild(select);
+
+          const setsCell = document.createElement('td');
+          setsCell.textContent = row.sets;
+
+          const repsCell = document.createElement('td');
+          repsCell.textContent = row.reps;
+
+          const restCell = document.createElement('td');
+          restCell.textContent = row.rest;
+
+          const noteCell = document.createElement('td');
+          noteCell.textContent = row.note || '';
+
+          tr.appendChild(exerciseCell);
+          tr.appendChild(setsCell);
+          tr.appendChild(repsCell);
+          tr.appendChild(restCell);
+          tr.appendChild(noteCell);
+
+          tbody.appendChild(tr);
         }
-        dayEl.appendChild(list);
+
+        dayEl.appendChild(table);
 
         if (day.note) {
           const note = document.createElement('div');
@@ -579,102 +917,154 @@
       planEl.hidden = false;
     }
 
-    function generateBeginnerFullBody(daysCount, goal) {
-      const repRange = goal === 'gain' ? '6–10 reps' : '8–12 reps';
-      const sets = goal === 'gain' ? '3–4 sets' : '3 sets';
+    function computePrescription({ goal, priority }) {
+      const strength = priority === 'strength';
+
+      // Keep rep ranges simple and gym-friendly.
+      if (strength) {
+        return {
+          mainSets: goal === 'gain' ? '4' : '3–4',
+          mainReps: '4–8',
+          mainRest: '2–3 min',
+          accessorySets: '2–3',
+          accessoryReps: '8–12',
+          accessoryRest: '60–90 sec'
+        };
+      }
+
+      return {
+        mainSets: goal === 'gain' ? '3–4' : '3',
+        mainReps: goal === 'gain' ? '6–10' : '8–12',
+        mainRest: '90–150 sec',
+        accessorySets: '2–3',
+        accessoryReps: '10–15',
+        accessoryRest: '60–90 sec'
+      };
+    }
+
+    function generateBeginnerFullBody(daysCount, context) {
+      const p = computePrescription(context);
+      const library = context.library;
 
       const A = {
         name: 'Day A (Full Body)',
-        items: [
-          `Squat pattern: ${sets} x ${repRange}`,
-          `Horizontal push: ${sets} x ${repRange}`,
-          `Horizontal pull: ${sets} x ${repRange}`,
-          `Hip hinge: 2–3 sets x ${repRange}`,
-          'Optional core: 2 sets (30–60 seconds)'
+        rows: [
+          buildRow({ patternKey: 'squat', patternLabel: 'Squat pattern', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_push', patternLabel: 'Horizontal push', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_pull', patternLabel: 'Horizontal pull', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'hinge', patternLabel: 'Hip hinge', sets: p.accessorySets, reps: p.mainReps, rest: p.accessoryRest }, context),
+          buildRow({ patternKey: 'core', patternLabel: 'Core', sets: '2', reps: '30–60 sec', rest: '45–60 sec' }, context)
         ],
         note: 'Leave 1–3 reps in the tank. Clean reps first.'
       };
 
       const B = {
         name: 'Day B (Full Body)',
-        items: [
-          `Hinge pattern: ${sets} x ${repRange}`,
-          `Vertical push: ${sets} x ${repRange}`,
-          `Vertical pull: ${sets} x ${repRange}`,
-          `Single-leg: 2–3 sets x ${repRange} (each side)`,
-          'Optional core: 2 sets (8–12 reps each side)'
+        rows: [
+          buildRow({ patternKey: 'hinge', patternLabel: 'Hinge pattern', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'vertical_push', patternLabel: 'Vertical push', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'vertical_pull', patternLabel: 'Vertical pull', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'single_leg', patternLabel: 'Single-leg', sets: p.accessorySets, reps: `${p.accessoryReps} (each side)`, rest: p.accessoryRest }, context),
+          buildRow({ patternKey: 'core', patternLabel: 'Core', sets: '2', reps: '8–12 (each side)', rest: '45–60 sec' }, context)
         ],
         note: 'Keep the same exercises for 4–6 weeks before changing.'
       };
 
       const C = {
         name: 'Day C (Full Body)',
-        items: [
-          `Squat pattern (variation): ${sets} x ${repRange}`,
-          `Horizontal push (variation): ${sets} x ${repRange}`,
-          `Horizontal pull (variation): ${sets} x ${repRange}`,
-          'Posterior chain: 2–3 sets x 10–15 reps',
-          goal === 'lose' ? 'Optional conditioning: 10–20 min easy incline walk' : 'Optional arms: 2 sets x 10–15 reps'
+        rows: [
+          buildRow({ patternKey: 'squat', patternLabel: 'Squat pattern (variation)', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_push', patternLabel: 'Horizontal push (variation)', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_pull', patternLabel: 'Horizontal pull (variation)', sets: p.mainSets, reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'posterior_chain', patternLabel: 'Posterior chain', sets: p.accessorySets, reps: p.accessoryReps, rest: p.accessoryRest }, context),
+          context.goal === 'lose'
+            ? buildRow({ patternKey: 'conditioning', patternLabel: 'Optional conditioning', sets: '1', reps: '10–20 min (easy)', rest: '—' }, context)
+            : buildRow({ patternKey: 'arms', patternLabel: 'Optional arms', sets: '2', reps: p.accessoryReps, rest: p.accessoryRest }, context)
         ],
         note: 'Small progress each week adds up.'
       };
 
-      if (daysCount === 2) return [A, B];
-      if (daysCount === 3) return [A, B, C];
-      if (daysCount === 4) return [A, B, C, A];
-      return [A, B, C, A, B];
+      let days;
+      if (daysCount === 2) days = [A, B];
+      else if (daysCount === 3) days = [A, B, C];
+      else if (daysCount === 4) days = [A, B, C, A];
+      else days = [A, B, C, A, B];
+
+      // If session is short, trim optional last movement.
+      if (Number(context.sessionLength) <= 45) {
+        for (const d of days) {
+          d.rows = d.rows.filter((r, idx) => idx < 4);
+        }
+      }
+
+      return days;
     }
 
-    function generateIntermediateSplit(daysCount, goal) {
-      const repRangeMain = goal === 'gain' ? '5–10 reps' : '6–12 reps';
-      const repRangeAccessory = '10–15 reps';
+    function generateIntermediateSplit(daysCount, context) {
+      const p = computePrescription(context);
 
       const Upper = {
         name: 'Upper',
-        items: [
-          `Horizontal push: 3–4 sets x ${repRangeMain}`,
-          `Horizontal pull: 3–4 sets x ${repRangeMain}`,
-          `Vertical push: 2–3 sets x ${repRangeMain}`,
-          `Vertical pull: 2–3 sets x ${repRangeMain}`,
-          `Optional arms: 2–3 sets x ${repRangeAccessory}`
+        rows: [
+          buildRow({ patternKey: 'horizontal_push', patternLabel: 'Horizontal push', sets: '3–4', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_pull', patternLabel: 'Horizontal pull', sets: '3–4', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'vertical_push', patternLabel: 'Vertical push', sets: '2–3', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'vertical_pull', patternLabel: 'Vertical pull', sets: '2–3', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'arms', patternLabel: 'Optional arms', sets: p.accessorySets, reps: p.accessoryReps, rest: p.accessoryRest }, context)
         ],
         note: 'Pick variations you can progress safely.'
       };
 
       const Lower = {
         name: 'Lower',
-        items: [
-          `Squat pattern: 3–4 sets x ${repRangeMain}`,
-          `Hinge pattern: 3–4 sets x ${repRangeMain}`,
-          `Single-leg: 2–3 sets x ${repRangeMain}`,
-          `Hamstrings or posterior chain: 2–3 sets x ${repRangeAccessory}`,
-          'Optional core: 2 sets'
+        rows: [
+          buildRow({ patternKey: 'squat', patternLabel: 'Squat pattern', sets: '3–4', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'hinge', patternLabel: 'Hinge pattern', sets: '3–4', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'single_leg', patternLabel: 'Single-leg', sets: p.accessorySets, reps: p.mainReps, rest: p.accessoryRest }, context),
+          buildRow({ patternKey: 'posterior_chain', patternLabel: 'Posterior chain', sets: p.accessorySets, reps: p.accessoryReps, rest: p.accessoryRest }, context),
+          buildRow({ patternKey: 'core', patternLabel: 'Optional core', sets: '2', reps: '8–12', rest: '45–60 sec' }, context)
         ],
         note: 'Avoid grinding reps. Stop with 1–2 reps left.'
       };
 
       const Full = {
         name: 'Full Body',
-        items: [
-          `Squat or hinge: 3 sets x ${repRangeMain}`,
-          `Push: 3 sets x ${repRangeMain}`,
-          `Pull: 3 sets x ${repRangeMain}`,
-          `Accessory (weak point): 2 sets x ${repRangeAccessory}`,
-          goal === 'lose' ? 'Optional conditioning: 10–20 min easy walk' : 'Optional core: 2 sets'
+        rows: [
+          buildRow({ patternKey: 'squat', patternLabel: 'Squat or hinge', sets: '3', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_push', patternLabel: 'Push', sets: '3', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: 'horizontal_pull', patternLabel: 'Pull', sets: '3', reps: p.mainReps, rest: p.mainRest }, context),
+          buildRow({ patternKey: context.weakPoint === 'arms' ? 'arms' : (context.weakPoint === 'core' ? 'core' : 'posterior_chain'), patternLabel: 'Accessory (weak point)', sets: '2', reps: p.accessoryReps, rest: p.accessoryRest }, context),
+          context.goal === 'lose'
+            ? buildRow({ patternKey: 'conditioning', patternLabel: 'Optional conditioning', sets: '1', reps: '10–20 min (easy)', rest: '—' }, context)
+            : buildRow({ patternKey: 'core', patternLabel: 'Optional core', sets: '2', reps: '8–12', rest: '45–60 sec' }, context)
         ],
         note: 'Keep it simple: quality work, repeatable week to week.'
       };
 
-      if (daysCount === 2) return [Full, Full];
-      if (daysCount === 3) return [Upper, Lower, Full];
-      if (daysCount === 4) return [Upper, Lower, Upper, Lower];
-      return [Upper, Lower, Upper, Lower, Full];
+      let days;
+      if (daysCount === 2) days = [Full, Full];
+      else if (daysCount === 3) days = [Upper, Lower, Full];
+      else if (daysCount === 4) days = [Upper, Lower, Upper, Lower];
+      else days = [Upper, Lower, Upper, Lower, Full];
+
+      if (Number(context.sessionLength) <= 45) {
+        for (const d of days) {
+          d.rows = d.rows.filter((r, idx) => idx < 4);
+        }
+      }
+
+      return days;
     }
 
-    function generatePlan({ daysCount, goal, experience }) {
+    function generatePlan({ daysCount, goal, experience, sessionLength, equipment, priority, weakPoint, guest }) {
+      const library = getExerciseLibrary();
+      const equipmentLabel = equipment === 'machines' ? 'Machines' : (equipment === 'dumbbells' ? 'Dumbbells' : (equipment === 'barbell' ? 'Barbell' : 'Mixed'));
+      const sessionLabel = `~${sessionLength} min`;
+      const context = { goal, experience, sessionLength, equipment, priority, weakPoint, library };
+
       const days = experience === 'intermediate'
-        ? generateIntermediateSplit(daysCount, goal)
-        : generateBeginnerFullBody(daysCount, goal);
+        ? generateIntermediateSplit(daysCount, context)
+        : generateBeginnerFullBody(daysCount, context);
 
       const goalLabel = goal === 'lose' ? 'Lose fat' : (goal === 'gain' ? 'Build muscle' : 'Maintain');
       const expLabel = experience === 'intermediate' ? 'Intermediate' : 'Beginner';
@@ -682,7 +1072,13 @@
       return {
         title: `${daysCount}-Day Plan • ${goalLabel} • ${expLabel}`,
         createdAt: Date.now(),
-        inputs: { daysCount, goal, experience },
+        inputs: { daysCount, goal, experience, sessionLength, equipment, priority, weakPoint },
+        meta: {
+          guest: Boolean(guest),
+          mode: guest ? 'Guest (not saved)' : 'Saved plan',
+          equipmentLabel,
+          sessionLabel
+        },
         days
       };
     }
@@ -700,6 +1096,10 @@
       if (inputs.daysCount) daysEl.value = String(inputs.daysCount);
       if (inputs.goal) goalEl.value = String(inputs.goal);
       if (inputs.experience) experienceEl.value = String(inputs.experience);
+      if (inputs.sessionLength) sessionLengthEl.value = String(inputs.sessionLength);
+      if (inputs.equipment) equipmentEl.value = String(inputs.equipment);
+      if (inputs.priority) priorityEl.value = String(inputs.priority);
+      if (inputs.weakPoint) weakPointEl.value = String(inputs.weakPoint);
 
       builderStatusEl.textContent = 'Loaded your last saved plan.';
       renderPlan(saved);
@@ -707,7 +1107,9 @@
 
     function render() {
       const user = getUser();
-      if (!user) {
+      const guest = isGuest();
+
+      if (!user && !guest) {
         showGate();
         gateStatusEl.textContent = '';
         return;
@@ -715,6 +1117,23 @@
 
       showBuilder();
       builderStatusEl.textContent = '';
+
+      // In guest mode, keep things usable but unsaved.
+      if (!user && guest) {
+        saveEl.classList.add('btn-disabled');
+        saveEl.setAttribute('aria-disabled', 'true');
+        saveEl.disabled = true;
+        logoutEl.textContent = 'Exit guest mode';
+        builderStatusEl.innerHTML = '<strong>Guest mode:</strong> generate your plan and print it. Create a free account anytime to save.';
+        clearPlanUI();
+        return;
+      }
+
+      // Logged in
+      saveEl.classList.remove('btn-disabled');
+      saveEl.removeAttribute('aria-disabled');
+      saveEl.disabled = false;
+      logoutEl.textContent = 'Log out';
       hydrateFromSavedPlan(user);
     }
 
@@ -738,14 +1157,27 @@
         createdAt: Date.now()
       });
 
+      // Leaving guest mode if they create an account.
+      setGuest(false);
+
       signupEmailEl.value = '';
       signupNameEl.value = '';
       gateStatusEl.textContent = '';
       render();
     }
 
+    function onGuest() {
+      setGuest(true);
+      gateStatusEl.textContent = '';
+      render();
+    }
+
     function onLogout() {
-      clearUser();
+      const user = getUser();
+      if (user) {
+        clearUser();
+      }
+      setGuest(false);
       clearPlanUI();
       builderStatusEl.textContent = '';
       render();
@@ -753,7 +1185,8 @@
 
     function onGenerate() {
       const user = getUser();
-      if (!user) {
+      const guest = isGuest();
+      if (!user && !guest) {
         render();
         return;
       }
@@ -761,17 +1194,24 @@
       const plan = generatePlan({
         daysCount: Number(daysEl.value),
         goal: goalEl.value,
-        experience: experienceEl.value
+        experience: experienceEl.value,
+        sessionLength: Number(sessionLengthEl.value),
+        equipment: equipmentEl.value,
+        priority: priorityEl.value,
+        weakPoint: weakPointEl.value,
+        guest: !user
       });
 
-      builderStatusEl.textContent = 'Plan generated. If you like it, press Save plan.';
+      builderStatusEl.textContent = user
+        ? 'Plan generated. If you like it, press Save plan.'
+        : 'Plan generated (guest). Print it if you want a copy.';
       renderPlan(plan);
     }
 
     function onSave() {
       const user = getUser();
       if (!user) {
-        render();
+        builderStatusEl.innerHTML = '<strong>Heads up:</strong> create a free account to save plans. You can still print in guest mode.';
         return;
       }
 
@@ -783,7 +1223,12 @@
       const plan = generatePlan({
         daysCount: Number(daysEl.value),
         goal: goalEl.value,
-        experience: experienceEl.value
+        experience: experienceEl.value,
+        sessionLength: Number(sessionLengthEl.value),
+        equipment: equipmentEl.value,
+        priority: priorityEl.value,
+        weakPoint: weakPointEl.value,
+        guest: false
       });
 
       setSavedPlan(user.email, plan);
@@ -791,9 +1236,19 @@
       renderPlan(plan);
     }
 
+    function onPrint() {
+      if (planEl.hidden) {
+        builderStatusEl.innerHTML = '<strong>Heads up:</strong> generate a plan first, then print it.';
+        return;
+      }
+      window.print();
+    }
+
     signupBtnEl.addEventListener('click', onSignup);
+    guestBtnEl.addEventListener('click', onGuest);
     generateEl.addEventListener('click', onGenerate);
     saveEl.addEventListener('click', onSave);
+    printEl.addEventListener('click', onPrint);
     logoutEl.addEventListener('click', onLogout);
 
     render();
