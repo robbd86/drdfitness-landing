@@ -154,18 +154,6 @@
       border-color: var(--color-primary);
     }
 
-    .btn-disabled {
-      opacity: 0.8;
-      cursor: default;
-    }
-
-    .btn-disabled:hover,
-    .btn-disabled:active {
-      transform: none;
-      box-shadow: none;
-      filter: none;
-    }
-
     main {
       padding: 44px 20px 64px;
     }
@@ -307,6 +295,25 @@
       line-height: 1.55;
     }
 
+    .how-use {
+      margin-top: 10px;
+      padding: 18px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+
+    .how-steps {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .how-steps li {
+      margin: 6px 0;
+    }
+
     footer {
       background: var(--color-bg-alt);
       border-top: 1px solid var(--color-border);
@@ -352,6 +359,15 @@
       <p class="subtitle">This is the training tools section — simple, beginner-friendly tools you can use alongside your workouts. If you're not sure where to start, try the <a href="/workouts/macro-calculator">Macro Calculator</a> to estimate calories and macros.</p>
       <p class="hint">You don’t need a perfect plan to begin — you just need a simple next step.</p>
       <div class="divider" aria-hidden="true"></div>
+
+      <section class="how-use" aria-label="How to use DRD Fitness">
+        <h2>How to use DRD Fitness</h2>
+        <ol class="how-steps">
+          <li>Calculate your macros</li>
+          <li>Train with simple, repeatable workouts</li>
+          <li>Adjust based on consistency</li>
+        </ol>
+      </section>
 
       <h2>Training Tools</h2>
       <p class="hint">Pick one tool, use it for a week, then adjust based on how you feel and how you’re progressing.</p>
