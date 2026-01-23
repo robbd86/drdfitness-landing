@@ -646,7 +646,6 @@
     <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
   </header>
   <nav class="top-nav" aria-label="Primary">
-    <a class="btn" href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch">Open App</a>
     <a class="btn" href="/supplements">Supplements</a>
     <a class="btn" href="/blog/fitness-confidence-2026">Blog</a>
     <a class="btn" href="/workouts">Workouts</a>
@@ -828,15 +827,11 @@
       }
     };
 
-    function Hero({ title, tagline, ctaText, ctaUrl, secondaryOffer, appUrl }) {
+    function Hero({ title, tagline, ctaText, ctaUrl, secondaryOffer }) {
       const rawTagline = (tagline || '').trim();
       const firstPeriodIndex = rawTagline.indexOf('.');
       const subheadingText = firstPeriodIndex > -1 ? rawTagline.slice(0, firstPeriodIndex + 1).trim() : rawTagline;
       const bodyText = firstPeriodIndex > -1 ? rawTagline.slice(firstPeriodIndex + 1).trim() : '';
-
-      const launchUrl = appUrl
-        ? `${appUrl.replace(/\/$/, '')}/?utm_source=drdfitness.co.uk&utm_medium=hero&utm_campaign=launch`
-        : null;
 
       return `
         <section class="hero section">
@@ -852,7 +847,6 @@
               <div class="hero-cta-stack" aria-label="Primary actions">
                 <a class="hero-macro-btn" href="/workouts/macro-calculator">Try the Macro Calculator</a>
                 <div class="hero-microcopy">Takes ~10 seconds · No signup required</div>
-                ${launchUrl ? `<a href="${launchUrl}" class="hero-secondary-cta">Open the App</a>` : ''}
                 <a href="${ctaUrl}" class="hero-secondary-cta">${ctaText || 'Start Tracking Free'}</a>
               </div>
 
@@ -1113,7 +1107,7 @@
     function renderPage(config) {
       const app = document.getElementById('app');
       app.innerHTML = `
-        ${Hero({ ...config.hero, appUrl: config.appUrl })}
+        ${Hero(config.hero)}
         ${SupplementsCTA(config.supplementsCta)}
         ${SocialProof(config.socialProof)}
         ${HowItWorks(config.howItWorks)}
