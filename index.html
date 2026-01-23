@@ -1,1214 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="impact-site-verification" content="8f866883-939f-4946-9bbf-7d47385f190c" />
-  
-  <!-- SEO & Metadata (populated from config) -->
-  <title id="page-title">DRD Fitness</title>
-  <meta id="page-description" name="description" content="" />
-  <meta id="page-keywords" name="keywords" content="" />
-  
-  <!-- Open Graph (Social Sharing) -->
-  <meta id="og-title" property="og:title" content="" />
-  <meta id="og-description" property="og:description" content="" />
-  <meta id="og-image" property="og:image" content="" />
-  <meta id="og-url" property="og:url" content="" />
-  <meta property="og:type" content="website" />
-  
-  <!-- Favicon -->
-  <link id="page-favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>" />
-  
-  <style>
-    :root {
-      --color-primary: #ff7a18;
-      --color-primary-rgb: 255, 122, 24;
-      --color-bg-main: #0b0b0b;
-      --color-bg-alt: #151515;
-      --color-bg-card: #1a1a1a;
-      --color-text-primary: #ffffff;
-      --color-text-secondary: rgba(255, 255, 255, 0.85);
-      --color-text-muted: rgba(255, 255, 255, 0.7);
-      --color-border: #333333;
-      --color-button-text: #000000;
-      --font-family: Inter, system-ui, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRD Fitness - Transform Your Body, Transform Your Life</title>
+    <meta name="description" content="Expert fitness coaching, personalized workout programs, and nutrition guidance. Start your transformation today with DRD Fitness.">
     
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: var(--font-family);
-      background: var(--color-bg-main);
-      color: var(--color-text-primary);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    /* Standardize spacing between major sections.
-       Each section keeps its bottom padding; the next section drops its top padding
-       so gaps land in the 3rem–4rem range instead of doubling. */
-    .section + .section {
-      padding-top: 0;
-    }
-    .section-alt {
-      background: var(--color-bg-alt);
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .container-narrow {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .container-small {
-      max-width: 520px;
-      margin: 0 auto;
-    }
-    .hero .container-small {
-      max-width: 720px;
-      position: relative;
-      z-index: 1;
-    }
-    h1 {
-      color: var(--color-text-primary);
-      margin-bottom: 20px;
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.02em;
-    }
-    h2 {
-      color: var(--color-primary);
-      margin-bottom: 20px;
-      font-size: clamp(1.8rem, 3.2vw, 2.3rem);
-      font-weight: 750;
-      line-height: 1.18;
-      letter-spacing: -0.01em;
-    }
-    h3 {
-      color: var(--color-primary);
-      margin-bottom: 12px;
-      font-size: clamp(1.35rem, 2.6vw, 1.7rem);
-      font-weight: 700;
-      line-height: 1.22;
-    }
-    p {
-      color: var(--color-text-secondary);
-      margin-bottom: 24px;
-      line-height: 1.7;
-      font-size: 1.05rem;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--color-text-muted);
-      margin-bottom: 32px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-    }
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-    .hero h1 {
-      font-weight: 800;
-      margin-bottom: 0;
-    }
-    .hero-subheading {
-      margin: 0;
-      font-size: 1.22rem;
-      font-weight: 700;
-      color: var(--color-text-secondary);
-      max-width: 680px;
-      line-height: 1.5;
-    }
-    .hero-body {
-      margin: 0;
-      font-size: 1.1rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      max-width: 620px;
-    }
-    .hero-actions {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-    }
-    .hero-secondary {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid var(--color-border);
-      max-width: 560px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-    }
-    .hero-secondary-heading {
-      margin: 0 0 10px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      letter-spacing: -0.01em;
-    }
-    .hero-secondary-text {
-      margin: 0 0 12px;
-      font-size: 1rem;
-      color: var(--color-text-secondary);
-      line-height: 1.55;
-    }
-    .hero-secondary-list {
-      margin: 0 0 14px;
-      padding-left: 18px;
-      color: var(--color-text-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .btn-outline {
-      display: inline-block;
-      background: transparent;
-      color: var(--color-text-primary);
-      padding: 12px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid var(--color-border);
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-    .btn-outline:hover {
-      transform: translateY(-1px);
-      background: var(--color-bg-card);
-      border-color: var(--color-primary);
-    }
-    .btn-outline:active {
-      transform: translateY(0);
-    }
-    .btn-outline:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-      border-color: var(--color-primary);
-    }
-    .hero-secondary-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .hero-secondary-link:hover {
-      color: var(--color-text-secondary);
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .hero-value-prop {
-      margin-top: 10px;
-      display: grid;
-      gap: 8px;
-      max-width: 680px;
-    }
+        :root {
+            /* Keeping your brand colors */
+            --primary-color: #FF6B35;
+            --secondary-color: #004E89;
+            --accent-color: #1A659E;
+            --dark-bg: #1A1A1D;
+            --light-bg: #F5F5F5;
+            --text-dark: #2C2C2C;
+            --text-light: #FFFFFF;
+        }
 
-    .hero-value-prop-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--color-text-primary);
-      letter-spacing: -0.01em;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
 
-    .hero-value-prop-subtitle {
-      font-size: 1.02rem;
-      color: var(--color-text-muted);
-      line-height: 1.55;
-    }
+        /* Navigation */
+        nav {
+            background-color: var(--dark-bg);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-    .hero-cta-stack {
-      margin-top: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .hero-macro-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: min(420px, 92vw);
-      padding: 16px 28px;
-      border-radius: 12px;
-      background: var(--color-primary);
-      color: var(--color-button-text);
-      font-weight: 800;
-      text-decoration: none;
-      font-size: 1.05rem;
-      line-height: 1;
-      min-height: 52px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
 
-    .hero-macro-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
-      filter: brightness(1.05);
-    }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-    .hero-macro-btn:active {
-      transform: translateY(0);
-      filter: brightness(0.98);
-    }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
 
-    .hero-macro-btn:focus-visible {
-      outline: none;
-      box-shadow:
-        0 4px 12px rgba(var(--color-primary-rgb), 0.3),
-        0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-    }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
 
-    .hero-microcopy {
-      margin-top: 6px;
-      color: var(--color-text-muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-      text-align: center;
-    }
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
 
-    .hero-secondary-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      color: var(--color-text-primary);
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-      text-decoration: none;
-      font-weight: 750;
-      min-height: 48px;
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
 
-    .hero-secondary-cta:hover {
-      transform: translateY(-1px);
-      background: var(--color-bg-card);
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15);
-    }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: var(--text-light);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
 
-    .credibility-card {
-      margin-top: 16px;
-      max-width: 680px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--color-text-muted);
-      font-size: 0.95rem;
-      line-height: 1.55;
-      text-align: left;
-    }
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    .flow-hint {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.62);
-      letter-spacing: 0.02em;
-    }
-    @media (max-width: 640px) {
-      .hero-secondary {
-        text-align: center;
-      }
-      .hero-secondary-list {
-        text-align: left;
-        display: inline-block;
-      }
-      .hero-content {
-        align-items: center;
-      }
-    }
-    .btn,
-    .cta-btn {
-      display: inline-block;
-      background: var(--color-primary);
-      color: var(--color-button-text);
-      padding: 14px 26px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      line-height: 1;
-      min-height: 48px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .btn:hover,
-    .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
-      filter: brightness(1.05);
-    }
-    .btn:active,
-    .cta-btn:active {
-      transform: translateY(0);
-      filter: brightness(0.98);
-    }
-    .btn:focus-visible,
-    .cta-btn:focus-visible {
-      outline: none;
-      box-shadow:
-        0 4px 12px rgba(var(--color-primary-rgb), 0.3),
-        0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-    }
-    .hero .btn,
-    .hero .cta-btn {
-      padding: 16px 34px;
-      font-size: 1.1rem;
-    }
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .social-proof {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .stat {
-      flex: 1;
-      min-width: 200px;
-    }
-    .stat-number {
-      font-size: 3rem;
-      color: var(--color-primary);
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .stat-label {
-      color: var(--color-text-muted);
-      font-size: 1rem;
-    }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      margin-top: 40px;
-    }
-    .step {
-      padding: 20px;
-    }
-    .step-number {
-      font-size: 2rem;
-      color: var(--color-primary);
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-      margin-top: 40px;
-    }
-    .feature-card {
-      background: var(--color-bg-card);
-      padding: 32px;
-      border-radius: 12px;
-    }
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-    }
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .screenshot-item {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .screenshot-placeholder {
-      background: var(--color-bg-card);
-      border-radius: 12px;
-      padding: 80px 20px;
-      border: 2px dashed var(--color-border);
-      opacity: 0.5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-    }
-    .screenshot-image {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-    }
-    .screenshot-caption {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      text-align: center;
-      line-height: 1.4;
-    }
-    .email-form {
-      display: flex;
-      gap: 12px;
-      max-width: 500px;
-      margin: 0 auto;
-      margin-top: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .email-input {
-      flex: 1;
-      min-width: 250px;
-      padding: 14px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--color-border);
-      background: var(--color-bg-card);
-      color: var(--color-text-primary);
-      font-size: 1rem;
-    }
-    .email-input:focus {
-      outline: none;
-      border-color: var(--color-primary);
-    }
-    .privacy-note {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      opacity: 0.7;
-      margin-top: 12px;
-      text-align: center;
-    }
-    .waitlist-status {
-      margin-top: 14px;
-      font-size: 0.95rem;
-      color: var(--color-text-secondary);
-      text-align: center;
-      min-height: 1.2em;
-    }
-    .waitlist-status.is-success {
-      color: var(--color-primary);
-      font-weight: 600;
-    }
-    .waitlist-status.is-error {
-      color: var(--color-text-muted);
-    }
-    .about-content {
-      text-align: left;
-      margin-top: 32px;
-    }
-    .about-content p {
-      margin-bottom: 16px;
-    }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
 
-    /* DEV NOTE (DO NOT "IMPROVE" THIS INTO A HERO):
-       The site banner is intentionally a dumb branding image only.
-       Messaging + CTAs live in the hero section below.
-       IMPORTANT: Do not modify links/URLs during layout/styling changes. */
-    .site-banner {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      background: var(--color-bg-alt);
-      border-bottom: 1px solid var(--color-border);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-      line-height: 0;
-      display: flex;
-      align-items: center;
-      padding: 8px 0;
-      z-index: 2;
-    }
-    .site-banner img {
-      width: 100%;
-      height: auto;
-      max-height: 320px;
-      display: block;
-    }
-    @media (max-width: 768px) {
-      .site-banner {
-        padding: 6px 0;
-      }
-      .site-banner img {
-        max-height: 220px;
-      }
-    }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
 
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 22px 20px 0;
-    }
-    .top-nav .btn {
-      min-width: 160px;
-      text-align: center;
-    }
-    .btn-disabled {
-      opacity: 0.8;
-      cursor: default;
-    }
-    .btn-disabled:hover,
-    .btn-disabled:active {
-      transform: none;
-      box-shadow: none;
-      filter: none;
-    }
-    footer {
-      background: var(--color-bg-alt);
-      border-top: 1px solid var(--color-border);
-      padding: 56px 20px 28px;
-      margin-top: 0;
-    }
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-    .footer-section h4 {
-      color: var(--color-primary);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .footer-section ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .footer-section ul li {
-      margin-bottom: 8px;
-    }
-    .footer-section ul li a {
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s ease;
-    }
-    .footer-section ul li a:hover {
-      color: var(--color-primary);
-    }
-    .footer-bottom {
-      border-top: 1px solid var(--color-border);
-      padding-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      line-height: 1.5;
-    }
-    .footer-brand {
-      font-weight: 600;
-      color: var(--color-text-secondary);
-    }
-  </style>
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .secondary-button:hover {
+            background-color: var(--text-light);
+            color: var(--secondary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background-color: var(--light-bg);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #FF8A5B 100%);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-light);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg);
+                flex-direction: column;
+                padding: 1rem 2rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="site-banner">
-    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
-  </header>
-  <nav class="top-nav" aria-label="Primary">
-    <a class="btn" href="/supplements">Supplements</a>
-    <a class="btn" href="/blog/fitness-confidence-2026">Blog</a>
-    <a class="btn" href="/workouts">Workouts</a>
-    <a class="btn" href="/workouts/workout-builder">Workout Builder</a>
-    <a class="btn" href="/gear">My Gear</a>
-  </nav>
-  <div id="app"></div>
-  
-  <script type="module">
-    // Configuration object - all content in one place
-    const config = {
-      brandName: "DRD Fitness",
-      brandColor: "#ff7a18",
-      
-      // Theme colors
-      theme: {
-        primary: "#ff7a18",
-        primaryRgb: "255, 122, 24",
-        bgMain: "#0b0b0b",
-        bgAlt: "#151515",
-        bgCard: "#1a1a1a",
-        textPrimary: "#ffffff",
-        textSecondary: "rgba(255, 255, 255, 0.85)",
-        textMuted: "rgba(255, 255, 255, 0.7)",
-        border: "#333333",
-        buttonText: "#000000",
-        fontFamily: "Inter, system-ui, sans-serif"
-      },
-      
-      // SEO & Metadata
-      metadata: {
-        title: "DRD Fitness - Training Log for Lifters",
-        description: "DRD Fitness app waitlist: enter the Gymshark giveaway and get early access + founding perks. Winner announced on TikTok.",
-        keywords: "workout tracker, strength training, lifting app, fitness log, weightlifting",
-        url: "https://drdfitness.co.uk",
-        image: "https://drdfitness.co.uk/og-image.png",
-        favicon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>"
-      },
-      appUrl: "https://app.drdfitness.co.uk",
-      
-      hero: {
-        title: "Train Hard. Track Smart.",
-        tagline: "A simple workout tracker built for lifters who want real progress without the clutter. Log sets, reps, and performance in seconds.",
-        ctaText: "Start Tracking Free",
-        ctaUrl: "#waitlist",
-        secondaryOffer: {
-          heading: "Prefer something simple?",
-          text: "Not ready for an app yet? Use my simple Notion workout tracker to log workouts and track progressive overload.",
-          bullets: [
-            "Log sets, reps & weight in seconds",
-            "Track weekly progress & PRs",
-            "Works on mobile & desktop",
-            "One-time purchase, no subscription"
-          ],
-          buttonText: "Get the Notion Tracker (£2)",
-          buttonUrl: "https://fitdrd.gumroad.com/l/grehpj",
-          linkText: "Or get the full starter system (save £?)",
-          linkUrl: "https://fitdrd.gumroad.com/l/grehpj"
-        }
-      },
-
-      supplementsCta: {
-        title: "Supplements I Actually Use",
-        description: "A short, honest list of what I use to support my own training routine.",
-        buttonText: "View Supplements",
-        url: "/supplements"
-      },
-      
-      socialProof: {
-        title: "Be part of the first release",
-        stats: [
-          { number: "Private", label: "beta opening soon" },
-          { number: "Help", label: "shape the roadmap" },
-          { number: "Get", label: "launch-day access" }
-        ]
-      },
-      
-      howItWorks: {
-        title: "How It Works",
-        subtitle: "Start tracking in under 60 seconds",
-        steps: [
-          { number: "1", title: "Set Up", description: "Add your exercises or import from our library" },
-          { number: "2", title: "Log Workouts", description: "Record sets, reps, and weight after every session" },
-          { number: "3", title: "See Progress", description: "Watch volume and strength trends over weeks and months" }
-        ]
-      },
-      
-      features: {
-        title: "No Distractions. Just Reps.",
-        subtitle: "Built for people who actually lift",
-        items: [
-          { icon: "📊", title: "Your Data. Not a Feed.", description: "No social features. No gamification. Just your workouts and your progress." },
-          { icon: "⚡", title: "Log Fast, Train Hard", description: "Enter sets in seconds. Get back to lifting. No clutter between you and your workout." },
-          { icon: "📈", title: "Track What Matters", description: "Volume, intensity, frequency. Real metrics that drive strength gains." },
-          { icon: "🔒", title: "Private by Default", description: "Your training is yours. No profiles, no sharing prompts, no algorithm." },
-          { icon: "💾", title: "Reliable Storage", description: "Every rep logged is stored. No data loss. No subscription tricks." },
-          { icon: "⚙️", title: "Built for Consistency", description: "Show up, log sets, repeat. The only tool that matters is one you'll use every session." }
-        ]
-      },
-      
-      screenshots: {
-        title: "See It In Action",
-        subtitle: "A preview of what's inside",
-        images: [
-          { 
-            src: "/assets/screenshots/Screenshot_20260106_145619_Chrome.jpg",
-            alt: "Workout tracking interface",
-            caption: "Log sets in seconds. No friction between reps."
-          },
-          { 
-            src: "/assets/screenshots/1000041075.jpg",
-            alt: "Progress charts",
-            caption: "Track volume and intensity over time."
-          },
-          { 
-            src: "/assets/screenshots/1000041073.jpg",
-            alt: "Exercise library",
-            caption: "Browse exercises or add your own."
-          }
-        ]
-      },
-      
-      emailCapture: {
-        title: "Win £30 Gymshark + Early Access",
-        subtitle: "DRD Fitness TikTok waitlist — get early app access + founding member perks. Winner announced on TikTok.",
-        placeholder: "your@email.com",
-        buttonText: "Enter + Get Early Access",
-        action: "https://script.google.com/macros/s/AKfycbwf3emXwNO6EPweonEv5InigL_j2ZAvLBeTC378LtuXprWYm-unmeBqVCrNA-jIek8/exec",
-        returnUrl: "https://drdfitness.co.uk",
-        privacyNote: "No spam. One entry per email."
-      },
-      
-      about: {
-        title: "About Us",
-        content: [
-          "We're on a mission to make strength training accessible and effective for everyone.",
-          "Born from a passion for fitness and technology, our platform helps athletes of all levels track their progress, stay consistent, and achieve their goals.",
-          "Whether you're a beginner or a seasoned lifter, we provide the tools you need to train smarter."
-        ]
-      },
-      
-      finalCTA: {
-        title: "Start Tracking Today",
-        subtitle: "No trial periods. No credit card. Just open the app and log your first workout.",
-        ctaText: "Start Tracking Free",
-        ctaUrl: "#waitlist"
-      },
-
-      // Footer configuration
-      footer: {
-        brandName: "DRD Fitness",
-        year: 2026,
-        sections: [
-          {
-            title: "Product",
-            links: [
-              { text: "Launch App", url: "#waitlist" },
-              { text: "Pricing", url: "#pricing" },
-              { text: "Features", url: "#features" }
-            ]
-          },
-          {
-            title: "Company",
-            links: [
-              { text: "About", url: "#about" },
-              { text: "Blog", url: "#blog" },
-              { text: "Contact", url: "#contact" }
-            ]
-          },
-          {
-            title: "Legal",
-            links: [
-              { text: "Privacy Policy", url: "#privacy" },
-              { text: "Terms of Service", url: "#terms" },
-              { text: "Cookie Policy", url: "#cookies" }
-            ]
-          }
-        ]
-      }
-    };
-
-    function Hero({ title, tagline, ctaText, ctaUrl, secondaryOffer }) {
-      const rawTagline = (tagline || '').trim();
-      const firstPeriodIndex = rawTagline.indexOf('.');
-      const subheadingText = firstPeriodIndex > -1 ? rawTagline.slice(0, firstPeriodIndex + 1).trim() : rawTagline;
-      const bodyText = firstPeriodIndex > -1 ? rawTagline.slice(firstPeriodIndex + 1).trim() : '';
-
-      return `
-        <section class="hero section">
-          <div class="container-small">
-            <div class="hero-content">
-              <h1>${title}</h1>
-              <div class="hero-value-prop" aria-label="Value proposition">
-                <div class="hero-value-prop-title">Simple tools for training, nutrition, and consistency.</div>
-                <div class="hero-value-prop-subtitle">Built for lifters who want progress without overcomplication.</div>
-              </div>
-              ${subheadingText ? `<div class="hero-subheading">${subheadingText}</div>` : ''}
-              ${bodyText ? `<p class="hero-body">${bodyText}</p>` : ''}
-              <div class="hero-cta-stack" aria-label="Primary actions">
-                <a class="hero-macro-btn" href="/workouts/macro-calculator">Try the Macro Calculator</a>
-                <div class="hero-microcopy">Takes ~10 seconds · No signup required</div>
-                <a href="${ctaUrl}" class="hero-secondary-cta">${ctaText || 'Start Tracking Free'}</a>
-              </div>
-
-              <div class="flow-hint">Home → Workouts → Macro Calculator</div>
-
-              <div class="credibility-card" aria-label="Macro calculator credibility">
-                Built using a standard calorie calculation method (Mifflin-St Jeor).<br />
-                Targets are intentionally conservative and designed for consistency.
-              </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">DRD FITNESS</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            ${secondaryOffer ? `
-              <div class="hero-secondary" aria-label="Secondary offer">
-                <div class="hero-secondary-heading">${secondaryOffer.heading}</div>
-                <div class="hero-secondary-text">${secondaryOffer.text}</div>
-                <ul class="hero-secondary-list">
-                  ${Array.isArray(secondaryOffer.bullets) ? secondaryOffer.bullets.map(b => `<li>${b}</li>`).join('') : ''}
-                </ul>
-                <a class="btn-outline" href="${secondaryOffer.buttonUrl}" target="_blank" rel="noopener noreferrer">${secondaryOffer.buttonText}</a>
-                ${secondaryOffer.linkText && secondaryOffer.linkUrl ? `
-                  <div>
-                    <a class="hero-secondary-link" href="${secondaryOffer.linkUrl}" target="_blank" rel="noopener noreferrer">${secondaryOffer.linkText}</a>
-                  </div>
-                ` : ''}
-              </div>
-            ` : ''}
-          </div>
-        </section>
-      `;
-    }
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/workouts">Workouts</a></li>
+                <li><a href="/workouts/workout-builder">Workout Builder</a></li>
+                <li><a href="/supplements">Supplements</a></li>
+                <li><a href="/blog/fitness-confidence-2026">Blog</a></li>
+                <li><a href="/gear">My Gear</a></li>
+                <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="cta-button">Open App</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    function FounderIntent() {
-      return `
-        <section class="section section-alt" aria-label="Founder intent">
-          <div class="container-narrow">
-            <h2>Why DRD Fitness exists</h2>
-            <p>Most fitness advice is either overcomplicated or unrealistic.<br />
-            DRD Fitness was built to give you simple tools you can actually stick to.</p>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: SupplementsCTA
-    function SupplementsCTA({ title, description, buttonText, url }) {
-      return `
-        <section class="section section-alt">
-          <div class="container-small">
-            <h2>${title}</h2>
-            <p>${description}</p>
-            <a href="${url}" class="btn">${buttonText}</a>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: SocialProof
-    function SocialProof({ title, stats }) {
-      return `
-        <section class="section section-alt">
-          <div class="container">
-            <h2>${title}</h2>
-            <div class="social-proof">
-              ${stats.map(stat => `
-                <div class="stat">
-                  <div class="stat-number">${stat.number}</div>
-                  <div class="stat-label">${stat.label}</div>
-                </div>
-              `).join('')}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Transform Your Body,<br>Transform Your Life</h1>
+            <p>Expert-designed workout programs, personalized nutrition guidance, and the tools you need to achieve your fitness goals.</p>
+            <div class="hero-cta">
+                <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=hero&utm_campaign=launch" class="cta-button">Start Free Trial</a>
+                <a href="/workouts" class="secondary-button">Explore Workouts</a>
             </div>
-          </div>
-        </section>
-      `;
-    }
+        </div>
+    </section>
 
-    // Component: HowItWorks
-    function HowItWorks({ title, subtitle, steps }) {
-      return `
-        <section class="section">
-          <div class="container">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
-            <div class="steps">
-              ${steps.map(step => `
-                <div class="step">
-                  <div class="step-number">${step.number}</div>
-                  <h3>${step.title}</h3>
-                  <p>${step.description}</p>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: Features
-    function Features({ title, subtitle, items }) {
-      return `
-        <section class="section section-alt">
-          <div class="container">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <h2 class="section-title">Everything You Need to Succeed</h2>
             <div class="features-grid">
-              ${items.map(item => `
                 <div class="feature-card">
-                  <div class="feature-icon">${item.icon}</div>
-                  <h3>${item.title}</h3>
-                  <p>${item.description}</p>
+                    <div class="feature-icon">💪</div>
+                    <h3>Custom Workout Programs</h3>
+                    <p>Access professionally designed workout plans tailored to your fitness level and goals. From beginner to advanced, we've got you covered.</p>
                 </div>
-              `).join('')}
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: Screenshots
-    function Screenshots({ title, subtitle, images }) {
-      return `
-        <section class="section">
-          <div class="container">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
-            <div class="screenshots-grid">
-              ${images.map(img => `
-                <div class="screenshot-item">
-                  ${img.src 
-                    ? `<img src="${img.src}" alt="${img.alt}" class="screenshot-image" />`
-                    : `<div class="screenshot-placeholder">${img.alt}</div>`
-                  }
-                  <div class="screenshot-caption">${img.caption}</div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Workout Builder</h3>
+                    <p>Create your own custom workouts with our intuitive builder. Mix and match exercises to design the perfect routine for your needs.</p>
                 </div>
-              `).join('')}
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: EmailCapture
-    function EmailCapture({ title, subtitle, placeholder, buttonText, action, returnUrl, privacyNote }) {
-      return `
-        <section class="section section-alt" id="waitlist">
-          <div class="container-narrow">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
-            <form class="email-form" action="${action}" method="POST">
-              ${returnUrl ? `<input type="hidden" name="returnUrl" value="${returnUrl}" />` : ''}
-              <input type="email" class="email-input" placeholder="${placeholder}" name="email" required />
-              <button type="submit" class="btn">${buttonText}</button>
-            </form>
-            <div class="waitlist-status" aria-live="polite"></div>
-            <div class="privacy-note">Entries close soon • UK only • No purchase required</div>
-            ${privacyNote ? `<div class="privacy-note">${privacyNote}</div>` : ''}
-            <div class="privacy-note">Unsubscribe anytime</div>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: About
-    function About({ title, content }) {
-      return `
-        <section class="section">
-          <div class="container-narrow">
-            <h2>${title}</h2>
-            <div class="about-content">
-              ${content.map(paragraph => `<p>${paragraph}</p>`).join('')}
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    // Component: FinalCTA
-    function FinalCTA({ title, subtitle, ctaText, ctaUrl }) {
-      return `
-        <section class="section section-alt">
-          <div class="container-small">
-            <h2>${title}</h2>
-            <p>${subtitle}</p>
-            <a href="${ctaUrl}" class="btn">${ctaText}</a>
-          </div>
-        </section>
-      `;
-    }
-
-    // Apply theme colors to CSS variables
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      root.style.setProperty('--color-primary', theme.primary);
-      root.style.setProperty('--color-primary-rgb', theme.primaryRgb);
-      root.style.setProperty('--color-bg-main', theme.bgMain);
-      root.style.setProperty('--color-bg-alt', theme.bgAlt);
-      root.style.setProperty('--color-bg-card', theme.bgCard);
-      root.style.setProperty('--color-text-primary', theme.textPrimary);
-      root.style.setProperty('--color-text-secondary', theme.textSecondary);
-      root.style.setProperty('--color-text-muted', theme.textMuted);
-      root.style.setProperty('--color-border', theme.border);
-      root.style.setProperty('--color-button-text', theme.buttonText);
-      root.style.setProperty('--font-family', theme.fontFamily);
-    }
-    // Apply metadata & SEO
-    function applyMetadata(metadata) {
-      // Page title
-      document.getElementById('page-title').textContent = metadata.title;
-      document.title = metadata.title;
-      
-      // Meta description
-      document.getElementById('page-description').setAttribute('content', metadata.description);
-      
-      // Keywords
-      if (metadata.keywords) {
-        document.getElementById('page-keywords').setAttribute('content', metadata.keywords);
-      }
-      
-      // Open Graph tags
-      document.getElementById('og-title').setAttribute('content', metadata.title);
-      document.getElementById('og-description').setAttribute('content', metadata.description);
-      document.getElementById('og-image').setAttribute('content', metadata.image);
-      document.getElementById('og-url').setAttribute('content', metadata.url);
-      
-      // Favicon
-      document.getElementById('page-favicon').setAttribute('href', metadata.favicon);
-    }
-
-    // Component: Footer
-    function Footer({ brandName, year, sections }) {
-      return `
-        <footer>
-          <div class="footer-container">
-            <div class="footer-content">
-              ${sections.map(section => `
-                <div class="footer-section">
-                  <h4>${section.title}</h4>
-                  <ul>
-                    ${section.links.map(link => `
-                      <li><a href="${link.url}">${link.text}</a></li>
-                    `).join('')}
-                  </ul>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Track your workouts, monitor your progress, and see your improvements over time with detailed analytics and insights.</p>
                 </div>
-              `).join('')}
+                <div class="feature-card">
+                    <div class="feature-icon">🥗</div>
+                    <h3>Nutrition Guidance</h3>
+                    <p>Get expert nutrition advice and meal planning support to fuel your workouts and optimize your results.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile App Access</h3>
+                    <p>Take your workouts anywhere with our mobile-friendly app. Train at the gym, at home, or on the go.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Supplement Recommendations</h3>
+                    <p>Discover the supplements that can support your fitness journey with our curated recommendations and guides.</p>
+                </div>
             </div>
-            <div class="footer-bottom">
-              <div class="footer-brand">
-                &copy; ${year} ${brandName}. All rights reserved.
-              </div>
-              <div>
-                Crafted with intention for serious athletes.
-              </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>1,100+</h3>
+                <p>Active Community Members</p>
             </div>
-          </div>
-        </footer>
-      `;
-    }
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Workout Programs</p>
+            </div>
+            <div class="stat-item">
+                <h3>10+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>App Access</p>
+            </div>
+        </div>
+    </section>
 
-    // Render the complete page
-    function renderPage(config) {
-      const app = document.getElementById('app');
-      app.innerHTML = `
-        ${Hero(config.hero)}
-        ${SupplementsCTA(config.supplementsCta)}
-        ${SocialProof(config.socialProof)}
-        ${HowItWorks(config.howItWorks)}
-        ${Features(config.features)}
-        ${Screenshots(config.screenshots)}
-        ${EmailCapture(config.emailCapture)}
-        ${About(config.about)}
-        ${FounderIntent()}
-        ${FinalCTA(config.finalCTA)}
-        ${Footer(config.footer)}
-      `;
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Start Your Transformation?</h2>
+        <p>Join thousands of others who are achieving their fitness goals with DRD Fitness</p>
+        <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=cta&utm_campaign=launch" class="cta-button" style="background-color: white; color: var(--primary-color);">Get Started Today</a>
+    </section>
 
-      initWaitlistForm(config.emailCapture);
-    }
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="/workouts">Workouts</a>
+            <a href="/supplements">Supplements</a>
+            <a href="/blog/fitness-confidence-2026">Blog</a>
+            <a href="/gear">Gear</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+        </div>
+        <p>&copy; 2025 DRD Fitness. All rights reserved.</p>
+    </footer>
 
-    function initWaitlistForm(emailCaptureConfig) {
-      const form = document.querySelector('#waitlist form.email-form');
-      if (!form) return;
-
-      // Avoid double-binding if renderPage is called more than once.
-      if (form.dataset.bound === 'true') return;
-      form.dataset.bound = 'true';
-
-      const emailInput = form.querySelector('input[name="email"]');
-      const submitButton = form.querySelector('button[type="submit"]');
-      const statusEl = document.querySelector('#waitlist .waitlist-status');
-
-      form.addEventListener('submit', async (e) => {
-        // Keep native validation behaviour.
-        if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
-
-        e.preventDefault();
-
-        const email = (emailInput && emailInput.value ? emailInput.value : '').trim();
-        if (!email) return;
-
-        const endpoint = emailCaptureConfig.action;
-        const returnUrl = emailCaptureConfig.returnUrl;
-
-        try {
-          if (submitButton) {
-            submitButton.disabled = true;
-          }
-          if (statusEl) {
-            statusEl.classList.remove('is-error', 'is-success');
-            statusEl.textContent = 'Submitting…';
-          }
-
-          // Use no-cors + text/plain to avoid CORS preflight for Apps Script web apps.
-          await fetch(endpoint, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'text/plain;charset=utf-8'
-            },
-            body: JSON.stringify({ email, returnUrl })
-          });
-
-          if (emailInput) emailInput.value = '';
-          if (statusEl) {
-            statusEl.classList.remove('is-error');
-            statusEl.classList.add('is-success');
-            statusEl.textContent = "You're in — entry saved. Watch TikTok for the winner + check email for early access.";
-          }
-          if (submitButton) {
-            const originalText = submitButton.textContent;
-            submitButton.textContent = "You're in";
-            window.setTimeout(() => {
-              submitButton.textContent = originalText;
-              submitButton.disabled = false;
-            }, 1200);
-          }
-        } catch (_) {
-          if (statusEl) {
-            statusEl.classList.remove('is-success');
-            statusEl.classList.add('is-error');
-            statusEl.textContent = 'Something went wrong — please try again.';
-          }
-          // Fallback to normal form POST navigation if fetch fails.
-          try {
-            if (submitButton) submitButton.disabled = false;
-            form.submit();
-          } catch (__) {
-            // no-op
-          }
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
         }
-      });
-    }
 
-    // Initialize
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        applyMetadata(config.metadata);
-        applyTheme(config.theme);
-        renderPage(config);
-      });
-    } else {
-      applyMetadata(config.metadata);
-      applyTheme(config.theme);
-      renderPage(config);
-    }
-  </script>
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!event.target.closest('.nav-container')) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
