@@ -17,151 +17,83 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>" />
 
   <style>
-    :root {
-      --color-primary: #ff7a18;
-      --color-primary-rgb: 255, 122, 24;
-      --color-bg-main: #0b0b0b;
-      --color-bg-alt: #151515;
-      --color-bg-card: #1a1a1a;
-      --color-text-primary: #ffffff;
-      --color-text-secondary: rgba(255, 255, 255, 0.85);
-      --color-text-muted: rgba(255, 255, 255, 0.7);
-      --color-border: #333333;
-      --color-button-text: #000000;
-      --font-family: Inter, system-ui, sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    * { box-sizing: border-box; }
+    :root {
+      --primary-color: #FF6B35;
+      --secondary-color: #004E89;
+      --accent-color: #1A659E;
+      --dark-bg: #1A1A1D;
+      --light-bg: #F5F5F5;
+      --text-dark: #2C2C2C;
+      --text-light: #FFFFFF;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
 
     body {
-      margin: 0;
       font-family: var(--font-family);
-      background: var(--color-bg-main);
-      color: var(--color-text-primary);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: var(--text-dark);
+      background-color: var(--light-bg);
     }
 
-    /* IMPORTANT: Do not modify links/URLs during layout/styling changes. */
-    .site-banner {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      background: var(--color-bg-alt);
-      border-bottom: 1px solid var(--color-border);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-      line-height: 0;
+    nav {
+      background-color: var(--dark-bg);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
-      z-index: 2;
     }
 
-    .site-banner img {
-      width: 100%;
-      height: auto;
-      max-height: 320px;
-      display: block;
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
     }
 
-    @media (max-width: 768px) {
-      .site-banner { padding: 6px 0; }
-      .site-banner img { max-height: 220px; }
-    }
-
-    .top-nav {
+    .nav-links {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 22px 20px 0;
+      gap: 2rem;
+      list-style: none;
     }
 
-    .top-nav .btn,
-    .top-nav .cta-btn {
-      min-width: 160px;
-      text-align: center;
-    }
-
-    .btn,
-    .cta-btn {
-      display: inline-block;
-      background: var(--color-primary);
-      color: var(--color-button-text);
-      padding: 14px 26px;
-      border-radius: 10px;
+    .nav-links a {
+      color: var(--text-light);
       text-decoration: none;
-      font-weight: 700;
-      border: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
       cursor: pointer;
-      font-size: 1rem;
-      line-height: 1;
-      min-height: 48px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
 
-    .btn:hover,
-    .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
-      filter: brightness(1.05);
-    }
-
-    .btn:active,
-    .cta-btn:active {
-      transform: translateY(0);
-      filter: brightness(0.98);
-    }
-
-    .btn:focus-visible,
-    .cta-btn:focus-visible {
-      outline: none;
-      box-shadow:
-        0 4px 12px rgba(var(--color-primary-rgb), 0.3),
-        0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-    }
-
-    .btn-outline {
-      display: inline-block;
-      background: transparent;
-      color: var(--color-text-primary);
-      padding: 12px 18px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 650;
-      border: 1px solid var(--color-border);
-      cursor: pointer;
-      font-size: 0.98rem;
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-      min-height: 48px;
-      line-height: 1;
-    }
-
-    .btn-outline:hover {
-      transform: translateY(-1px);
-      background: var(--color-bg-card);
-      border-color: var(--color-primary);
-    }
-
-    .btn-outline:active { transform: translateY(0); }
-
-    .btn-outline:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-      border-color: var(--color-primary);
-    }
-
-    .btn-disabled {
-      opacity: 0.8;
-      cursor: default;
-    }
-
-    .btn-disabled:hover,
-    .btn-disabled:active {
-      transform: none;
-      box-shadow: none;
-      filter: none;
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-light);
+      margin: 3px 0;
+      transition: 0.3s;
     }
 
     main {
@@ -183,7 +115,7 @@
 
     .subtitle {
       margin: 0 0 22px;
-      color: var(--color-text-muted);
+      color: #6b6b6b;
       font-size: 1.05rem;
       line-height: 1.65;
       max-width: 760px;
@@ -192,14 +124,14 @@
     .divider {
       width: 86px;
       height: 1px;
-      background: var(--color-primary);
+      background: var(--primary-color);
       margin: 14px 0 26px;
       opacity: 0.9;
     }
 
     h2 {
       margin: 26px 0 10px;
-      color: var(--color-primary);
+      color: var(--secondary-color);
       font-size: 1.45rem;
       font-weight: 750;
       line-height: 1.25;
@@ -207,7 +139,7 @@
 
     h3 {
       margin: 18px 0 8px;
-      color: var(--color-text-primary);
+      color: var(--text-dark);
       font-size: 1.1rem;
       font-weight: 750;
       line-height: 1.35;
@@ -216,7 +148,7 @@
 
     p {
       margin: 0 0 14px;
-      color: var(--color-text-secondary);
+      color: #3f3f3f;
       font-size: 1.03rem;
       line-height: 1.75;
     }
@@ -224,21 +156,22 @@
     ul {
       margin: 10px 0 16px;
       padding-left: 18px;
-      color: var(--color-text-muted);
+      color: #6b6b6b;
       line-height: 1.7;
     }
 
     .callout {
-      background: var(--color-bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 10px;
       padding: 18px;
       margin-top: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
     }
 
     .callout p {
       margin: 0;
-      color: var(--color-text-secondary);
+      color: #3f3f3f;
     }
 
     .two-col {
@@ -249,10 +182,11 @@
     }
 
     .card {
-      background: var(--color-bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 10px;
       padding: 18px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
     }
 
     .card p {
@@ -261,48 +195,155 @@
 
     .micro {
       margin-top: 6px;
-      color: var(--color-text-muted);
+      color: #6b6b6b;
       font-size: 0.95rem;
       line-height: 1.6;
+    }
+
+    .btn,
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover,
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn:active,
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:focus-visible,
+    .cta-btn:focus-visible {
+      outline: none;
+      box-shadow:
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 0 0 3px rgba(255, 107, 53, 0.25);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--secondary-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 2px solid var(--secondary-color);
+      cursor: pointer;
+      font-size: 0.98rem;
+      line-height: 1;
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-1px);
+      background: var(--secondary-color);
+      color: var(--text-light);
+      border-color: var(--secondary-color);
+    }
+
+    .btn-outline:active { transform: translateY(0); }
+
+    .btn-outline:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.25);
+      border-color: var(--primary-color);
+    }
+
+    .btn-disabled {
+      opacity: 0.8;
+      cursor: default;
+    }
+
+    .btn-disabled:hover,
+    .btn-disabled:active {
+      transform: none;
+      box-shadow: none;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
     }
 
     @media (max-width: 860px) {
       .two-col { grid-template-columns: 1fr; }
     }
 
-    footer {
-      background: var(--color-bg-alt);
-      border-top: 1px solid var(--color-border);
-      padding: 44px 20px;
-      text-align: center;
-      color: var(--color-text-muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--dark-bg);
+        flex-direction: column;
+        padding: 1rem 2rem;
+      }
 
-    footer a {
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-    }
+      .nav-links.active {
+        display: flex;
+      }
 
-    footer a:hover {
-      color: var(--color-primary);
-      border-bottom-color: var(--color-primary);
+      .menu-toggle {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="site-banner">
-    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
-  </header>
-
-  <nav class="top-nav" aria-label="Primary">
-    <a class="btn" href="/supplements">Supplements</a>
-    <a class="btn" href="/blog/fitness-confidence-2026">Blog</a>
-    <a class="btn" href="/workouts">Workouts</a>
-    <a class="btn" href="/workouts/workout-builder">Workout Builder</a>
-    <a class="btn" href="/gear">My Gear</a>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">DRD FITNESS</a>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/workouts">Workouts</a></li>
+        <li><a href="/workouts/workout-builder">Workout Builder</a></li>
+        <li><a href="/supplements">Supplements</a></li>
+        <li><a href="/blog/fitness-confidence-2026">Blog</a></li>
+        <li><a href="/gear">My Gear</a></li>
+        <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="btn">Open App</a></li>
+      </ul>
+    </div>
   </nav>
 
   <main>
@@ -393,7 +434,30 @@
   </main>
 
   <footer>
-    <div>&copy; 2026 <a href="/">DRD Fitness</a>. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/workouts">Workouts</a>
+      <a href="/supplements">Supplements</a>
+      <a href="/blog/fitness-confidence-2026">Blog</a>
+      <a href="/gear">Gear</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+    </div>
+    <p>&copy; 2025 DRD Fitness. All rights reserved.</p>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+      const navLinks = document.getElementById('navLinks');
+      if (!event.target.closest('.nav-container')) {
+        navLinks.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>

@@ -18,17 +18,25 @@
 
   <style>
     :root {
-      --color-primary: #ff7a18;
-      --color-primary-rgb: 255, 122, 24;
-      --color-bg-main: #0b0b0b;
-      --color-bg-alt: #151515;
-      --color-bg-card: #1a1a1a;
-      --color-text-primary: #ffffff;
-      --color-text-secondary: rgba(255, 255, 255, 0.85);
-      --color-text-muted: rgba(255, 255, 255, 0.7);
-      --color-border: #333333;
-      --color-button-text: #000000;
-      --font-family: Inter, system-ui, sans-serif;
+      --primary-color: #FF6B35;
+      --secondary-color: #004E89;
+      --accent-color: #1A659E;
+      --dark-bg: #1A1A1D;
+      --light-bg: #F5F5F5;
+      --text-dark: #2C2C2C;
+      --text-light: #FFFFFF;
+
+      --color-primary: var(--primary-color);
+      --color-primary-rgb: 255, 107, 53;
+      --color-bg-main: var(--light-bg);
+      --color-bg-alt: #FFFFFF;
+      --color-bg-card: #FFFFFF;
+      --color-text-primary: var(--text-dark);
+      --color-text-secondary: #3f3f3f;
+      --color-text-muted: #6b6b6b;
+      --color-border: #e3e3e3;
+      --color-button-text: var(--text-light);
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -36,11 +44,66 @@
     body {
       margin: 0;
       font-family: var(--font-family);
-      background: var(--color-bg-main);
-      color: var(--color-text-primary);
+      background: var(--light-bg);
+      color: var(--text-dark);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    nav {
+      background-color: var(--dark-bg);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-light);
+      margin: 3px 0;
+      transition: 0.3s;
     }
 
     /* IMPORTANT: Do not modify links/URLs during layout/styling changes. */
@@ -87,39 +150,36 @@
     .btn,
     .cta-btn {
       display: inline-block;
-      background: var(--color-primary);
-      color: var(--color-button-text);
-      padding: 14px 26px;
-      border-radius: 10px;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: bold;
       border: none;
       cursor: pointer;
       font-size: 1rem;
       line-height: 1;
-      min-height: 48px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .btn:hover,
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
-      filter: brightness(1.05);
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
     }
 
     .btn:active,
     .cta-btn:active {
       transform: translateY(0);
-      filter: brightness(0.98);
     }
 
     .btn:focus-visible,
     .cta-btn:focus-visible {
       outline: none;
       box-shadow:
-        0 4px 12px rgba(var(--color-primary-rgb), 0.3),
-        0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 0 0 3px rgba(255, 107, 53, 0.25);
     }
 
     .btn-disabled {
@@ -137,31 +197,31 @@
     .btn-ghost {
       display: inline-block;
       background: transparent;
-      color: var(--color-text-primary);
-      padding: 12px 18px;
-      border-radius: 10px;
+      color: var(--secondary-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
       text-decoration: none;
-      font-weight: 650;
-      border: 1px solid var(--color-border);
+      font-weight: bold;
+      border: 2px solid var(--secondary-color);
       cursor: pointer;
       font-size: 0.98rem;
       transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-      min-height: 48px;
       line-height: 1;
     }
 
     .btn-ghost:hover {
       transform: translateY(-1px);
-      background: var(--color-bg-card);
-      border-color: var(--color-primary);
+      background: var(--secondary-color);
+      color: var(--text-light);
+      border-color: var(--secondary-color);
     }
 
     .btn-ghost:active { transform: translateY(0); }
 
     .btn-ghost:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
-      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.25);
+      border-color: var(--primary-color);
     }
 
     main { padding: 44px 20px 64px; }
@@ -188,45 +248,26 @@
     }
 
     .divider {
-      width: 86px;
-      height: 1px;
-      background: var(--color-primary);
-      margin: 14px 0 26px;
-      opacity: 0.9;
-    }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: var(--dark-bg);
+          flex-direction: column;
+          padding: 1rem 2rem;
+        }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
+        .nav-links.active {
+          display: flex;
+        }
 
-    .card {
-      background: var(--color-bg-card);
-      border-radius: 12px;
-      padding: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 1.25rem;
-      font-weight: 750;
-      color: var(--color-primary);
-    }
-
-    label {
-      display: block;
-      font-size: 0.95rem;
-      color: var(--color-text-secondary);
-      margin-bottom: 8px;
-      font-weight: 650;
-    }
-
-    input,
-    select {
-      width: 100%;
+        .menu-toggle {
+          display: flex;
+        }
+      }
       background: #0f0f0f;
       color: var(--color-text-primary);
       border: 1px solid var(--color-border);
@@ -435,16 +476,23 @@
   </style>
 </head>
 <body>
-  <header class="site-banner">
-    <img src="/assets/brand/logo.png" alt="DRD Fitness Banner" />
-  </header>
-
-  <nav class="top-nav" aria-label="Primary">
-    <a class="btn" href="/supplements">Supplements</a>
-    <a class="btn" href="/blog/fitness-confidence-2026">Blog</a>
-    <a class="btn" href="/workouts">Workouts</a>
-    <a class="btn" href="/workouts/workout-builder">Workout Builder</a>
-    <a class="btn" href="/gear">My Gear</a>
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">DRD FITNESS</a>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/workouts">Workouts</a></li>
+        <li><a href="/workouts/workout-builder">Workout Builder</a></li>
+        <li><a href="/supplements">Supplements</a></li>
+        <li><a href="/blog/fitness-confidence-2026">Blog</a></li>
+        <li><a href="/gear">My Gear</a></li>
+        <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="btn">Open App</a></li>
+      </ul>
+    </div>
   </nav>
 
   <main>
@@ -599,10 +647,31 @@
   </main>
 
   <footer>
-    <div>&copy; 2026 <a href="/">DRD Fitness</a>. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/workouts">Workouts</a>
+      <a href="/supplements">Supplements</a>
+      <a href="/blog/fitness-confidence-2026">Blog</a>
+      <a href="/gear">Gear</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+    </div>
+    <p>&copy; 2025 DRD Fitness. All rights reserved.</p>
   </footer>
 
   <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+      const navLinks = document.getElementById('navLinks');
+      if (!event.target.closest('.nav-container')) {
+        navLinks.classList.remove('active');
+      }
+    });
+
     const STORAGE_USER_KEY = 'drd_workout_builder_user';
     const STORAGE_PLAN_KEY_PREFIX = 'drd_workout_builder_plan:';
     const STORAGE_GUEST_KEY = 'drd_workout_builder_guest';
