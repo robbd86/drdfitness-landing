@@ -2,6 +2,7 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": true,
+  "framework": null,
   "rewrites": [
     { "source": "/assets/brand/logo.svg", "destination": "/assets/brand/logo.png" },
     { "source": "/assets/brand/logo.jpg", "destination": "/assets/brand/logo.png" },
