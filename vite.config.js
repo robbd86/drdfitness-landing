@@ -1,1 +1,1 @@
-export default {};
+// Intentionally left blank to avoid framework-specific configuration.
