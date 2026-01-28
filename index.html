@@ -6,443 +6,140 @@
     <title>DRD Fitness - Transform Your Body, Transform Your Life</title>
     <meta name="description" content="Expert fitness coaching, personalized workout programs, and nutrition guidance. Start your transformation today with DRD Fitness.">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Keeping your brand colors */
-            --primary-color: #FF6B35;
-            --secondary-color: #004E89;
-            --accent-color: #1A659E;
-            --dark-bg: #1A1A1D;
-            --light-bg: #F5F5F5;
-            --text-dark: #2C2C2C;
-            --text-light: #FFFFFF;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--light-bg);
-        }
-
-        /* Navigation */
-        nav {
-            background-color: var(--dark-bg);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .cta-button {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-            color: var(--text-light);
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .secondary-button {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .secondary-button:hover {
-            background-color: var(--text-light);
-            color: var(--secondary-color);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 4rem 2rem;
-            background-color: var(--light-bg);
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--secondary-color);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .feature-card p {
-            color: var(--text-dark);
-            line-height: 1.8;
-        }
-
-        /* Stats Section */
-        .stats {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            padding: 4rem 2rem;
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #FF8A5B 100%);
-            color: var(--text-light);
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-light);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--dark-bg);
-                flex-direction: column;
-                padding: 1rem 2rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="/" class="logo">DRD FITNESS</a>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="/workouts">Workouts</a></li>
-                <li><a href="/workouts/workout-builder">Workout Builder</a></li>
-                <li><a href="/cut-controller/">Cut Controller</a></li>
-                <li><a href="/supplements">Supplements</a></li>
-                <li><a href="/blog/fitness-confidence-2026">Blog</a></li>
-                <li><a href="/gear">My Gear</a></li>
-                <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="cta-button">Open App</a></li>
+<body class="bg-[#F5F5F5] text-[#2C2C2C] font-sans">
+    <nav class="bg-[#1A1A1D] text-white sticky top-0 z-50 shadow">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="text-xl font-extrabold text-[#FF6B35]">DRD FITNESS</a>
+            <button class="md:hidden flex flex-col gap-1" onclick="toggleMenu()" aria-label="Toggle menu">
+                <span class="w-6 h-0.5 bg-white"></span>
+                <span class="w-6 h-0.5 bg-white"></span>
+                <span class="w-6 h-0.5 bg-white"></span>
+            </button>
+            <ul class="hidden md:flex items-center gap-6 text-sm font-semibold" id="navLinks">
+                <li><a class="hover:text-[#FF6B35]" href="/workouts">Workouts</a></li>
+                <li><a class="hover:text-[#FF6B35]" href="/workouts/workout-builder">Workout Builder</a></li>
+                <li><a class="hover:text-[#FF6B35]" href="/cut-controller/">Cut Controller</a></li>
+                <li><a class="hover:text-[#FF6B35]" href="/supplements">Supplements</a></li>
+                <li><a class="hover:text-[#FF6B35]" href="/blog/fitness-confidence-2026">Blog</a></li>
+                <li><a class="hover:text-[#FF6B35]" href="/gear">My Gear</a></li>
+                <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="bg-[#FF6B35] text-white px-4 py-2 rounded-md font-bold hover:shadow">Open App</a></li>
             </ul>
         </div>
+        <ul class="md:hidden hidden flex-col gap-4 px-6 pb-6 text-sm font-semibold" id="navLinksMobile">
+            <li><a class="hover:text-[#FF6B35]" href="/workouts">Workouts</a></li>
+            <li><a class="hover:text-[#FF6B35]" href="/workouts/workout-builder">Workout Builder</a></li>
+            <li><a class="hover:text-[#FF6B35]" href="/cut-controller/">Cut Controller</a></li>
+            <li><a class="hover:text-[#FF6B35]" href="/supplements">Supplements</a></li>
+            <li><a class="hover:text-[#FF6B35]" href="/blog/fitness-confidence-2026">Blog</a></li>
+            <li><a class="hover:text-[#FF6B35]" href="/gear">My Gear</a></li>
+            <li><a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="inline-flex bg-[#FF6B35] text-white px-4 py-2 rounded-md font-bold w-max">Open App</a></li>
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <h1>Transform Your Body,<br>Transform Your Life</h1>
-            <p>Expert-designed workout programs, personalized nutrition guidance, and the tools you need to achieve your fitness goals.</p>
-            <div class="hero-cta">
-                <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=hero&utm_campaign=launch" class="cta-button">Start Free Trial</a>
-                <a href="/workouts" class="secondary-button">Explore Workouts</a>
+    <section class="bg-gradient-to-br from-[#004E89] to-[#1A659E] text-white">
+        <div class="max-w-6xl mx-auto px-6 py-20 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Transform Your Body,<br>Transform Your Life</h1>
+            <p class="mt-4 text-lg md:text-xl text-white/90">Expert-designed workout programs, personalized nutrition guidance, and the tools you need to achieve your fitness goals.</p>
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=hero&utm_campaign=launch" class="bg-[#FF6B35] text-white px-6 py-3 rounded-md font-bold hover:shadow-lg">Start Free Trial</a>
+                <a href="/workouts" class="border-2 border-white text-white px-6 py-3 rounded-md font-bold hover:bg-white hover:text-[#004E89]">Explore Workouts</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="features-container">
-            <h2 class="section-title">Everything You Need to Succeed</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💪</div>
-                    <h3>Custom Workout Programs</h3>
-                    <p>Access professionally designed workout plans tailored to your fitness level and goals. From beginner to advanced, we've got you covered.</p>
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-[#004E89]">Everything You Need to Succeed</h2>
+            <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">💪</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Custom Workout Programs</h3>
+                    <p class="mt-2 text-gray-600">Access professionally designed workout plans tailored to your fitness level and goals. From beginner to advanced, we've got you covered.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Workout Builder</h3>
-                    <p>Create your own custom workouts with our intuitive builder. Mix and match exercises to design the perfect routine for your needs.</p>
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">🎯</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Workout Builder</h3>
+                    <p class="mt-2 text-gray-600">Create your own custom workouts with our intuitive builder. Mix and match exercises to design the perfect routine for your needs.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Progress Tracking</h3>
-                    <p>Track your workouts, monitor your progress, and see your improvements over time with detailed analytics and insights.</p>
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">📊</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Progress Tracking</h3>
+                    <p class="mt-2 text-gray-600">Track your workouts, monitor your progress, and see your improvements over time with detailed analytics and insights.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🥗</div>
-                    <h3>Nutrition Guidance</h3>
-                    <p>Get expert nutrition advice and meal planning support to fuel your workouts and optimize your results.</p>
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">🥗</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Nutrition Guidance</h3>
+                    <p class="mt-2 text-gray-600">Get expert nutrition advice and meal planning support to fuel your workouts and optimize your results.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Mobile App Access</h3>
-                    <p>Take your workouts anywhere with our mobile-friendly app. Train at the gym, at home, or on the go.</p>
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">📱</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Mobile App Access</h3>
+                    <p class="mt-2 text-gray-600">Take your workouts anywhere with our mobile-friendly app. Train at the gym, at home, or on the go.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛒</div>
-                    <h3>Supplement Recommendations</h3>
-                    <p>Discover the supplements that can support your fitness journey with our curated recommendations and guides.</p>
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition">
+                    <div class="text-3xl">🛒</div>
+                    <h3 class="mt-4 text-xl font-bold text-[#004E89]">Supplement Recommendations</h3>
+                    <p class="mt-2 text-gray-600">Discover the supplements that can support your fitness journey with our curated recommendations and guides.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item">
-                <h3>1,100+</h3>
-                <p>Active Community Members</p>
-            </div>
-            <div class="stat-item">
-                <h3>500+</h3>
-                <p>Workout Programs</p>
-            </div>
-            <div class="stat-item">
-                <h3>10+</h3>
-                <p>Years Experience</p>
-            </div>
-            <div class="stat-item">
-                <h3>24/7</h3>
-                <p>App Access</p>
+    <section class="bg-[#1A1A1D] text-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-[#FF6B35]">1,100+</div>
+                    <div class="mt-1 text-sm text-white/80">Active Community Members</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-[#FF6B35]">500+</div>
+                    <div class="mt-1 text-sm text-white/80">Workout Programs</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-[#FF6B35]">10+</div>
+                    <div class="mt-1 text-sm text-white/80">Years Experience</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-[#FF6B35]">24/7</div>
+                    <div class="mt-1 text-sm text-white/80">App Access</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>Ready to Start Your Transformation?</h2>
-        <p>Join thousands of others who are achieving their fitness goals with DRD Fitness</p>
-        <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=cta&utm_campaign=launch" class="cta-button" style="background-color: white; color: var(--primary-color);">Get Started Today</a>
+    <section class="bg-gradient-to-br from-[#FF6B35] to-[#FF8A5B] text-white py-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold">Ready to Start Your Transformation?</h2>
+            <p class="mt-3 text-lg text-white/90">Join thousands of others who are achieving their fitness goals with DRD Fitness</p>
+            <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=cta&utm_campaign=launch" class="mt-6 inline-flex bg-white text-[#FF6B35] px-6 py-3 rounded-md font-bold hover:shadow-lg">Get Started Today</a>
+        </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-links">
-            <a href="/workouts">Workouts</a>
-            <a href="/supplements">Supplements</a>
-            <a href="/blog/fitness-confidence-2026">Blog</a>
-            <a href="/gear">Gear</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+    <footer class="bg-[#1A1A1D] text-white py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-6 text-sm">
+            <a href="/workouts" class="hover:text-[#FF6B35]">Workouts</a>
+            <a href="/supplements" class="hover:text-[#FF6B35]">Supplements</a>
+            <a href="/blog/fitness-confidence-2026" class="hover:text-[#FF6B35]">Blog</a>
+            <a href="/gear" class="hover:text-[#FF6B35]">Gear</a>
+            <a href="/privacy" class="hover:text-[#FF6B35]">Privacy Policy</a>
+            <a href="/terms" class="hover:text-[#FF6B35]">Terms of Service</a>
         </div>
-        <p>&copy; 2025 DRD Fitness. All rights reserved.</p>
+        <p class="mt-6 text-center text-xs text-white/60">&copy; 2025 DRD Fitness. All rights reserved.</p>
     </footer>
 
     <script>
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            const navLinks = document.getElementById('navLinksMobile');
+            navLinks.classList.toggle('hidden');
         }
 
-        // Close menu when clicking outside
         document.addEventListener('click', function(event) {
-            const navLinks = document.getElementById('navLinks');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            if (!event.target.closest('.nav-container')) {
-                navLinks.classList.remove('active');
+            const navLinks = document.getElementById('navLinksMobile');
+            if (!event.target.closest('nav')) {
+                navLinks.classList.add('hidden');
             }
         });
     </script>

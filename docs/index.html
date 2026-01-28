@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DRD Fitness API Docs</title>
+  <meta name="description" content="DRD Fitness API documentation." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+</head>
+<body class="bg-[#F5F5F5] text-[#1f1f1f]">
+  <nav class="bg-[#1A1A1D] text-white sticky top-0 z-50 shadow">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-extrabold text-[#FF6B35]">DRD FITNESS</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <a class="hover:text-[#FF6B35]" href="/workouts">Workouts</a>
+        <a class="hover:text-[#FF6B35]" href="/cut-controller/">Cut Controller</a>
+        <a class="hover:text-[#FF6B35]" href="/supplements">Supplements</a>
+        <a class="hover:text-[#FF6B35]" href="/blog/fitness-confidence-2026">Blog</a>
+        <a class="hover:text-[#FF6B35]" href="/gear">My Gear</a>
+        <a href="https://app.drdfitness.co.uk/?utm_source=drdfitness.co.uk&utm_medium=nav&utm_campaign=launch" class="bg-[#FF6B35] text-white px-4 py-2 rounded-md font-bold hover:shadow">Open App</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-3xl md:text-4xl font-extrabold">API Documentation</h1>
+        <p class="text-gray-600 max-w-3xl">Live documentation generated from the OpenAPI schema.</p>
+        <div class="flex flex-wrap items-center gap-3 text-sm">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-3 py-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>OpenAPI:</span>
+            <a class="text-[#004E89] font-semibold hover:underline" href="https://api.drdfitness.co.uk/openapi.json" target="_blank" rel="noopener">openapi.json</a>
+          </span>
+          <button id="refreshBtn" class="px-3 py-1.5 rounded-md bg-[#004E89] text-white font-semibold hover:shadow">Refresh</button>
+        </div>
+      </div>
+
+      <section class="mt-10">
+        <div id="status" class="text-sm text-gray-500">Loading schema...</div>
+        <div id="apiContent" class="mt-6 space-y-4"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="bg-[#1A1A1D] text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-6 text-sm">
+      <a href="/" class="hover:text-[#FF6B35]">Home</a>
+      <a href="/workouts" class="hover:text-[#FF6B35]">Workouts</a>
+      <a href="/supplements" class="hover:text-[#FF6B35]">Supplements</a>
+      <a href="/blog/fitness-confidence-2026" class="hover:text-[#FF6B35]">Blog</a>
+      <a href="/gear" class="hover:text-[#FF6B35]">Gear</a>
+      <a href="/privacy" class="hover:text-[#FF6B35]">Privacy Policy</a>
+      <a href="/terms" class="hover:text-[#FF6B35]">Terms of Service</a>
+    </div>
+    <p class="mt-6 text-center text-xs text-white/60">&copy; 2026 DRD Fitness. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    const OPENAPI_URL = 'https://api.drdfitness.co.uk/openapi.json';
+
+    const statusEl = document.getElementById('status');
+    const contentEl = document.getElementById('apiContent');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    const escapeHtml = (value) => String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+
+    const jsonBlock = (data) => {
+      const json = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+      return `
+        <pre class="rounded-lg bg-[#0B1120] text-white text-xs md:text-sm overflow-auto p-4"><code class="language-json">${escapeHtml(json)}</code></pre>
+      `;
+    };
+
+    const buildParameterTable = (params = []) => {
+      if (!params.length) return '<p class="text-sm text-gray-500">No parameters.</p>';
+      return `
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+            <thead class="bg-gray-50 text-gray-700">
+              <tr>
+                <th class="text-left px-3 py-2 border-b">Name</th>
+                <th class="text-left px-3 py-2 border-b">In</th>
+                <th class="text-left px-3 py-2 border-b">Type</th>
+                <th class="text-left px-3 py-2 border-b">Required</th>
+                <th class="text-left px-3 py-2 border-b">Description</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              ${params.map(param => {
+                const schema = param.schema || {};
+                const type = schema.type ? `${schema.type}${schema.format ? ` (${schema.format})` : ''}` : '—';
+                return `
+                  <tr class="border-b last:border-0">
+                    <td class="px-3 py-2 font-semibold text-[#004E89]">${escapeHtml(param.name || '—')}</td>
+                    <td class="px-3 py-2">${escapeHtml(param.in || '—')}</td>
+                    <td class="px-3 py-2">${escapeHtml(type)}</td>
+                    <td class="px-3 py-2">${param.required ? 'Yes' : 'No'}</td>
+                    <td class="px-3 py-2">${escapeHtml(param.description || '—')}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    };
+
+    const renderResponses = (responses = {}) => {
+      const entries = Object.entries(responses);
+      if (!entries.length) return '<p class="text-sm text-gray-500">No responses documented.</p>';
+
+      return entries.map(([status, response]) => {
+        const content = response.content || {};
+        const jsonContent = content['application/json'] || {};
+        const example = jsonContent.example || jsonContent.examples?.default?.value;
+        const schema = jsonContent.schema;
+        return `
+          <div class="border border-gray-200 rounded-lg p-4 bg-white space-y-3">
+            <div class="text-sm font-semibold">Status ${escapeHtml(status)}</div>
+            ${response.description ? `<p class="text-sm text-gray-600">${escapeHtml(response.description)}</p>` : ''}
+            <div>
+              <div class="text-xs uppercase tracking-wide text-gray-400">Sample Response</div>
+              ${example ? jsonBlock(example) : schema ? jsonBlock(schema) : '<p class="text-sm text-gray-500">No sample available.</p>'}
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    const renderRequestBody = (requestBody) => {
+      if (!requestBody || !requestBody.content) {
+        return '<p class="text-sm text-gray-500">No request body.</p>';
+      }
+      const jsonBody = requestBody.content['application/json'];
+      if (!jsonBody) {
+        return '<p class="text-sm text-gray-500">No JSON body schema.</p>';
+      }
+      const example = jsonBody.example || jsonBody.examples?.default?.value;
+      const schema = jsonBody.schema;
+      return `
+        <div class="space-y-2">
+          <div class="text-xs uppercase tracking-wide text-gray-400">Request Body</div>
+          ${example ? jsonBlock(example) : schema ? jsonBlock(schema) : '<p class="text-sm text-gray-500">No schema available.</p>'}
+        </div>
+      `;
+    };
+
+    const buildEndpointCard = (path, method, operation) => {
+      const methodColor = {
+        get: 'bg-emerald-100 text-emerald-700',
+        post: 'bg-blue-100 text-blue-700',
+        put: 'bg-amber-100 text-amber-700',
+        patch: 'bg-purple-100 text-purple-700',
+        delete: 'bg-rose-100 text-rose-700'
+      }[method] || 'bg-gray-100 text-gray-700';
+
+      const parameters = [
+        ...(operation.parameters || [])
+      ];
+
+      const summary = operation.summary || operation.operationId || `${method.toUpperCase()} ${path}`;
+      const description = operation.description || '';
+
+      return `
+        <details class="group border border-gray-200 rounded-xl bg-white shadow-sm">
+          <summary class="flex flex-wrap items-center justify-between gap-4 cursor-pointer list-none px-5 py-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-semibold px-2 py-1 rounded ${methodColor}">${method.toUpperCase()}</span>
+              <span class="font-semibold text-[#1f1f1f]">${escapeHtml(path)}</span>
+            </div>
+            <span class="text-sm text-gray-500">${escapeHtml(summary)}</span>
+          </summary>
+          <div class="px-5 pb-5 space-y-6">
+            ${description ? `<p class="text-sm text-gray-600">${escapeHtml(description)}</p>` : ''}
+            <div>
+              <h4 class="text-sm font-semibold text-gray-700 mb-2">Parameters</h4>
+              ${buildParameterTable(parameters)}
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-gray-700 mb-2">Request Body</h4>
+              ${renderRequestBody(operation.requestBody)}
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-gray-700 mb-2">Responses</h4>
+              <div class="space-y-4">
+                ${renderResponses(operation.responses || {})}
+              </div>
+            </div>
+          </div>
+        </details>
+      `;
+    };
+
+    const renderOpenApi = (schema) => {
+      const paths = schema.paths || {};
+      const entries = Object.entries(paths);
+      if (!entries.length) {
+        contentEl.innerHTML = '<p class="text-gray-500">No endpoints found.</p>';
+        return;
+      }
+
+      const cards = entries.flatMap(([path, methods]) => {
+        return Object.entries(methods).map(([method, operation]) => {
+          if (!operation || typeof operation !== 'object') return '';
+          return buildEndpointCard(path, method, operation);
+        });
+      }).join('');
+
+      contentEl.innerHTML = `<div class="space-y-4">${cards}</div>`;
+      requestAnimationFrame(() => {
+        if (window.hljs) {
+          hljs.highlightAll();
+        }
+      });
+    };
+
+    const loadSchema = async () => {
+      statusEl.textContent = 'Loading schema...';
+      contentEl.innerHTML = '';
+      try {
+        const response = await fetch(OPENAPI_URL, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const schema = await response.json();
+        statusEl.textContent = `Loaded ${Object.keys(schema.paths || {}).length} endpoints.`;
+        renderOpenApi(schema);
+      } catch (error) {
+        statusEl.textContent = 'Failed to load schema.';
+        contentEl.innerHTML = `<div class="bg-white border border-red-200 text-red-700 p-4 rounded-lg">${escapeHtml(error.message)}</div>`;
+      }
+    };
+
+    refreshBtn.addEventListener('click', loadSchema);
+    loadSchema();
+  </script>
+</body>
+</html>
