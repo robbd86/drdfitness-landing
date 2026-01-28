@@ -239,6 +239,7 @@
     <p class="mt-4 text-center text-xs text-white/60">© 2026 DRD Fitness. All rights reserved.</p>
   </footer>
 
+  <script src="/scripts/cookie-consent.js"></script>
   <script>
     const form = document.getElementById('cutControllerForm');
     const statusEl = document.getElementById('formStatus');
@@ -261,6 +262,14 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       statusEl.textContent = 'Calculating...';
+
+      if (typeof window.hasConsent === 'function' && !window.hasConsent('functional')) {
+        statusEl.textContent = 'Please enable Functional cookies to use the Cut Controller.';
+        if (typeof window.openCookieBanner === 'function') {
+          window.openCookieBanner();
+        }
+        return;
+      }
 
       const payload = {
         sex: document.getElementById('sex').value,
